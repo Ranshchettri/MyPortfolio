@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,14 +20,38 @@
     <div class="brand-floating">Ransh</div>
 
     <!-- centered pill nav (keeps Home/About/Resume/Skills/Projects/Contact) -->
-    <nav>
+    <nav class="icon-nav">
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li>
+          <a href="index.html" aria-label="Home"
+            ><i class="fas fa-home"></i><span>Home</span></a
+          >
+        </li>
+        <li>
+          <a href="about.html" aria-label="About"
+            ><i class="fas fa-user"></i><span>About</span></a
+          >
+        </li>
+        <li>
+          <a href="resume.html" aria-label="Resume"
+            ><i class="fas fa-file-alt"></i><span>Resume</span></a
+          >
+        </li>
+        <li>
+          <a href="skills.html" aria-label="Skills"
+            ><i class="fas fa-brain"></i><span>Skills</span></a
+          >
+        </li>
+        <li>
+          <a href="projects.html" aria-label="Projects"
+            ><i class="fas fa-code"></i><span>Projects</span></a
+          >
+        </li>
+        <li>
+          <a href="contact.html" aria-label="Contact"
+            ><i class="fas fa-phone"></i><span>Contact</span></a
+          >
+        </li>
       </ul>
     </nav>
 
@@ -79,12 +102,13 @@
             </div>
           </div>
           <div class="name">Ransh chettri</div>
-           <p class="description typing-text">
+          <p class="description typing-text">
             <span id="typing-desc"></span><span class="typing-cursor">|</span>
-          </p> 
-           <button
+          </p>
+          <button
             class="hire-btn"
-            onclick="window.location.href='contact.html'">
+            onclick="window.location.href='contact.html'"
+          >
             Hire Me
           </button>
         </div>
@@ -171,7 +195,7 @@
                 </svg>
               </div>
               <h3 class="skill-title">
-                 MERN,C,C#,<br/>JAVA, PYTHON , WORDPRESS,JS<br />
+                MERN,C,C#,<br />JAVA, PYTHON , WORDPRESS,JS<br />
                 PHOTOSHOP, FIGMA
               </h3>
               <div class="skill-arrow">→</div>
@@ -198,8 +222,7 @@
           placeholder="Ask me anything..."
           id="chat-input"
         />
-                <button class="chat-btn" onclick="sendChatMessage()">Send</button>
-
+        <button class="chat-btn" onclick="sendChatMessage()">Send</button>
       </div>
     </div>
 

@@ -1,0 +1,5 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "github.copilot.editor.enableSoundEffects": false,
+    "github.copilot.chat.notifications.enabled": false
+}

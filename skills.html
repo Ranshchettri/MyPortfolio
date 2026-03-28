@@ -12,18 +12,40 @@
     <link rel="stylesheet" href="css/skills.css" />
   </head>
   <body>
-        <div class="brand-floating">Ransh</div>
+    <div class="brand-floating">Ransh</div>
 
-    <nav>
-      <div class="brand">Ransh</div>
-      <div class="hamburger"><i class="fas fa-bars"></i></div>
+    <nav class="icon-nav black-icons">
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="skills.html" class="active">Skills</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li>
+          <a href="index.html" aria-label="Home"
+            ><i class="fas fa-home"></i><span>Home</span></a
+          >
+        </li>
+        <li>
+          <a href="about.html" aria-label="About"
+            ><i class="fas fa-user"></i><span>About</span></a
+          >
+        </li>
+        <li>
+          <a href="resume.html" aria-label="Resume"
+            ><i class="fas fa-file-alt"></i><span>Resume</span></a
+          >
+        </li>
+        <li>
+          <a href="skills.html" aria-label="Skills" class="active"
+            ><i class="fas fa-brain"></i><span>Skills</span></a
+          >
+        </li>
+        <li>
+          <a href="projects.html" aria-label="Projects"
+            ><i class="fas fa-code"></i><span>Projects</span></a
+          >
+        </li>
+        <li>
+          <a href="contact.html" aria-label="Contact"
+            ><i class="fas fa-phone"></i><span>Contact</span></a
+          >
+        </li>
       </ul>
     </nav>
 
@@ -79,10 +101,7 @@
               <div class="skill-box"><i class="fab fa-java"></i> JAVA</div>
               <div class="skill-box"><i class="fab fa-C#"></i> .NET</div>
               <div class="skill-box"><i class="fas fa-code"></i>C</div>
-              <div class="skill-box"><i class="fab fa-html5"></i> HTML5</div>
-              <div class="skill-box"><i class="fab fa-css3-alt"></i> CSS3</div>
               <div class="skill-box"><i class="fab fa-python"></i> Python</div>
-              <div class="skill-box"><i class="fab fa-vuejs"></i> Angular</div>
               <div class="skill-box">
                 <i class="fab fa-node-js"></i> Node.js
               </div>
@@ -186,8 +205,6 @@
         <button class="chat-btn" onclick="sendChatMessage()">Send</button>
       </div>
     </div>
-
-    
 
     <script src="js/script.js"></script>
   </body>

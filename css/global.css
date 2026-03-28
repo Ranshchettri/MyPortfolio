@@ -91,21 +91,14 @@ nav {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1050; /* below floating brand/icons but above hero content */
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  background: transparent; /* transparent background */
   display: flex;
   align-items: center;
   gap: 1.25rem;
   min-height: 48px;
   padding: 0.1rem 1rem;
   border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.03)
-  );
-  box-shadow: 0 4px 18px rgba(4, 6, 12, 0.13);
+  box-shadow: none; /* remove shadow */
   overflow-x: visible; /* allow slide-in animation to show */
 }
 
@@ -162,16 +155,59 @@ nav ul.nav-links::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 nav ul.nav-links li a {
-  color: #6e6e6e; /* gray */
-  font-size: 0.98rem;
+  color: #fff; /* white */
+  font-size: 1.4rem; /* bigger icons */
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
   transition: color 0.2s, background 0.2s;
+  position: relative;
+  opacity: 1; /* fully opaque */
 }
 nav ul.nav-links li a:hover,
 nav ul.nav-links li a.active {
-  background: rgba(255, 255, 255, 0.04);
-  color: #00c4b4;
+  background: rgba(255, 255, 255, 0.1); /* subtle white hover */
+  /* removed color change */
+  opacity: 1; /* full opacity on hover */
+}
+nav ul.nav-links li a span {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent; /* no background */
+  color: #000; /* black text */
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem; /* larger font */
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+  /* z-index: 2000; higher z-index */
+}
+.icon-nav nav ul.nav-links li a span {
+  color: #fff; /* white text on home page */
+}
+.black-icons nav ul.nav-links li a span {
+  color: #000; /* black text on other pages */
+}
+nav ul.nav-links li a:hover span {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Black icons for other pages */
+.black-icons ul.nav-links li a {
+  color: #000;
+  opacity: 1; /* fully opaque */
+  font-size: 1.4rem; /* bigger icons */
+}
+.black-icons ul.nav-links li a:hover,
+.black-icons ul.nav-links li a.active {
+  background: rgba(0, 0, 0, 0.1); /* subtle black hover */
+  /* removed color change */
+  opacity: 1;
 }
 
 /* right side social icons */
