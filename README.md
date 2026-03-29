@@ -226,3 +226,91 @@ Links:
 - LinkedIn: https://www.linkedin.com/in/ransh-chettri-852386315
 - Instagram: https://www.instagram.com/ransh_xettri777/
 
+---
+
+## Old Documentation about portf
+
+The section below preserves the older project documentation style for reference.
+
+### Old Overview
+
+Welcome to my personal portfolio website. This project showcases my skills,
+projects, and experience as a passionate software developer and aspiring
+AI/ML specialist.
+
+This portfolio was designed as a modern, responsive, and interactive website
+to highlight my journey, technical expertise, and completed projects. It
+focuses on clean UI, smooth animations, and a user-friendly experience across
+devices.
+
+### Old Features
+
+- Home Page
+  Eye-catching hero section with animated typing effect, profile card, quick
+  stats, and highlighted skill cards.
+- About Page
+  Personal introduction with a separate About section/page design.
+- Resume Page
+  Timeline-style layout for education, skills, certifications, and project
+  highlights.
+- Skills Page
+  Categorized skill groups with a modern responsive layout.
+- Projects Page
+  Dedicated project card layout with links and descriptions.
+- Contact Page
+  Direct contact form, social links, and personal contact details.
+- Chatbot
+  Floating chatbot with predefined questions and portfolio-related responses.
+- Consistent UI/UX
+  Fixed navigation, social icons, responsive layout, transitions, gradients,
+  and interactive elements.
+
+### Old Tech Stack
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Font Awesome
+- EmailJS / direct email integration readiness
+- Responsive Design with media queries
+
+### Old UI Highlights
+
+- Glassmorphism-inspired effects on cards and panels
+- Animated backgrounds and interactive elements
+- Floating brand and social icons for quick access
+- Clean readable typography with strong contrast
+- Hover effects and subtle transitions
+
+### Old Project Structure
+
+```text
+index.html
+about.html
+resume.html
+skills.html
+projects.html
+contact.html
+
+css/
+  global.css
+  home.css
+  about.css
+  resume.css
+  skills.css
+  projects.css
+  contact.css
+
+js/
+  script.js
+  about-ball.js
+
+image/
+  image.png
+  image2.png
+```
+
+### Old Contact Note
+
+Feel free to reach out via the contact form or connect through GitHub,
+LinkedIn, or Instagram.
