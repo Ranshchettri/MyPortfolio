@@ -173,6 +173,33 @@ document.addEventListener("DOMContentLoaded", function () {
   typeHero();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const scrollDrops = document.querySelectorAll(".scroll-drop");
+  if (!scrollDrops.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    scrollDrops.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.16,
+      rootMargin: "0px 0px -8% 0px",
+    }
+  );
+
+  scrollDrops.forEach((element) => revealObserver.observe(element));
+});
+
 // Interactive animations for skill cards
 document.querySelectorAll(".skill-card").forEach((card) => {
   card.addEventListener("mouseenter", function () {

@@ -542,6 +542,49 @@ body {
   text-justify: inter-word;
 }
 
+.scroll-drop {
+  opacity: 0;
+  transform: translateY(-34px);
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s ease;
+  transition-delay: var(--drop-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.scroll-drop.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-credit-strip {
+  width: 100%;
+  margin: 2.8rem 0 0;
+  padding: 0.5rem 0 0.75rem;
+  background: transparent;
+  border: none;
+}
+
+.home-credit-strip p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.96rem;
+  color: #d0c7bc;
+  letter-spacing: 0.01em;
+}
+
+.home-credit-strip span {
+  color: #ff7c48;
+}
+
+.home-credit-strip .credit-divider {
+  color: #8d8376;
+  padding: 0 0.18rem;
+}
+
 .slide-in-left {
   opacity: 0;
   transform: translateX(-42px);
@@ -652,5 +695,11 @@ body {
 
   .about-panel-head p {
     max-width: 200px;
+  }
+
+  .home-credit-strip p {
+    font-size: 0.84rem;
+    gap: 0.22rem;
+    text-align: center;
   }
 }
