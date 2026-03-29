@@ -10,11 +10,15 @@
     />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/skills.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
+  <body class="page-dark">
     <div class="brand-floating">Ransh</div>
 
-    <nav class="icon-nav black-icons">
+    <nav class="icon-nav">
       <ul class="nav-links">
         <li>
           <a href="index.html" aria-label="Home"
@@ -22,23 +26,13 @@
           >
         </li>
         <li>
-          <a href="about.html" aria-label="About"
-            ><i class="fas fa-user"></i><span>About</span></a
-          >
-        </li>
-        <li>
           <a href="resume.html" aria-label="Resume"
-            ><i class="fas fa-file-alt"></i><span>Resume</span></a
+            ><i class="fas fa-user"></i><span>Resume</span></a
           >
         </li>
         <li>
           <a href="skills.html" aria-label="Skills" class="active"
             ><i class="fas fa-brain"></i><span>Skills</span></a
-          >
-        </li>
-        <li>
-          <a href="projects.html" aria-label="Projects"
-            ><i class="fas fa-code"></i><span>Projects</span></a
           >
         </li>
         <li>
@@ -49,7 +43,6 @@
       </ul>
     </nav>
 
-    <!-- moved social icons out of the <nav> so they can sit fixed on the viewport -->
     <div class="social-icons">
       <a
         href="https://www.facebook.com/aadarsha.karki.100236"
@@ -81,112 +74,65 @@
       ></a>
     </div>
 
-    <main>
-      <section class="skills">
-        <div class="skills-grid">
-          <div class="skills-group">
-            <h2>Core Technologies</h2>
-            <p class="skills-desc">
-              Primary technologies I use for building modern web applications
-            </p>
-            <div class="skills-box-list">
-              <div class="skill-box">
-                <i class="fa-brands fa-nextjs"></i> Next.js
-              </div>
-              <div class="skill-box"><i class="fab fa-react"></i> React.js</div>
-              <div class="skill-box"><i class="fab fa-js"></i> JavaScript</div>
-              <div class="skill-box">
-                <i class="fab fa-bootstrap"></i> Bootstrap
-              </div>
-              <div class="skill-box"><i class="fab fa-java"></i> JAVA</div>
-              <div class="skill-box"><i class="fab fa-C#"></i> .NET</div>
-              <div class="skill-box"><i class="fas fa-code"></i>C</div>
-              <div class="skill-box"><i class="fab fa-python"></i> Python</div>
-              <div class="skill-box">
-                <i class="fab fa-node-js"></i> Node.js
-              </div>
-              <div class="skill-box">
-                <i class="fas fa-wind"></i> Tailwind CSS
-              </div>
-            </div>
-          </div>
-          <div class="skills-group">
-            <h2>Backend & Cloud</h2>
-            <p class="skills-desc">
-              Technologies for server-side development and cloud services
-            </p>
-            <div class="skills-box-list">
-              <div class="skill-box"><i class="fas fa-database"></i> MySQL</div>
-              <div class="skill-box"><i class="fas fa-leaf"></i> MongoDB</div>
-              <div class="skill-box"><i class="fas fa-wind"></i> PostSql</div>
-              <div class="skill-box">
-                <i class="fas fa-database"></i> SQLite
-              </div>
-            </div>
-          </div>
-          <div class="skills-group">
-            <h2>Development Tools</h2>
-            <p class="skills-desc">
-              Essential tools for development workflow and deployment
-            </p>
-            <div class="skills-box-list">
-              <div class="skill-box"><i class="fab fa-docker"></i> Docker</div>
-              <div class="skill-box">
-                <i class="fas fa-paint-brush"></i>photoshop
-              </div>
-              <div class="skill-box"><i class="fab fa-github"></i> GitHub</div>
-              <div class="skill-box">
-                <i class="fas fa-paint-brush"></i> Canva
-              </div>
-              <div class="skill-box">
-                <i class="fab fa-wordpress"></i> wordpress
-              </div>
-              <div class="skill-box">
-                <i class="fas fa-network-wired"></i> REST APIs
-              </div>
-              <div class="skill-box"><i class="fab fa-figma"></i> Figma</div>
-            </div>
-          </div>
-          <div class="skills-group professional-skills">
-            <h2>Professional Skills</h2>
-            <p class="skills-desc">
-              Soft skills and professional competencies that enhance technical
-              work
-            </p>
-            <div class="skills-box-list">
-              <div class="skill-box skill-box-wide">
-                <i class="fas fa-brain"></i> Problem Solving
-                <span class="skill-box-sub"
-                  >Breaking down complex challenges into manageable
-                  solutions</span
-                >
-              </div>
-              <div class="skill-box skill-box-wide">
-                <i class="fas fa-users"></i> Team Collaboration
-                <span class="skill-box-sub"
-                  >Effective communication and teamwork in development
-                  projects</span
-                >
-              </div>
-              <div class="skill-box skill-box-wide">
-                <i class="fas fa-clock"></i> Time Management
-                <span class="skill-box-sub"
-                  >Efficient project planning and execution</span
-                >
-              </div>
-              <div class="skill-box skill-box-wide">
-                <i class="fas fa-lightbulb"></i> System Design
-                <span class="skill-box-sub"
-                  >Architecting scalable and maintainable systems</span
-                >
-              </div>
-            </div>
+    <main class="skills-page-main">
+      <section class="skills-layout">
+        <div class="skills-word-stack">
+          <span>DEVELOPER</span>
+          <span>DESIGNER</span>
+          <span>CREATOR</span>
+        </div>
+
+        <div class="skills-side">
+          <h1 class="skills-title">Skills</h1>
+
+          <div class="skills-columns">
+            <article class="skills-column">
+              <h2>Languages &amp; Tools</h2>
+              <ul>
+                <li>Java</li>
+                <li>Python</li>
+                <li>C</li>
+                <li>Flutter</li>
+                <li>JavaScript</li>
+                <li>Git</li>
+                <li>Docker</li>
+                <li>Figma</li>
+                <li>Photoshop</li>
+              </ul>
+            </article>
+
+            <article class="skills-column">
+              <h2>Frameworks &amp; Libraries</h2>
+              <ul>
+                <li>Next.js</li>
+                <li>React.js</li>
+                <li>Node.js</li>
+                <li>Bootstrap</li>
+                <li>Tailwind CSS</li>
+                <li>WordPress</li>
+                <li>REST APIs</li>
+              </ul>
+            </article>
+
+            <article class="skills-column">
+              <h2>Core Workflow</h2>
+              <ul>
+                <li>MySQL</li>
+                <li>MongoDB</li>
+                <li>SQLite</li>
+                <b>
+                  <li>Problem Solving</li>
+                  <li>Team Collaboration</li>
+                  <li>Time Management</li>
+                  <li>System Design</li> </b>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
     </main>
 
-    <div id="chatbot">💬</div>
+    <div id="chatbot"><i class="fa-solid fa-comment-dots"></i></div>
     <div id="chatbox">
       <button id="chatbox-close">X</button>
       <div class="chat-message bot">
@@ -202,7 +148,13 @@
           placeholder="Ask me anything..."
           id="chat-input"
         />
-        <button class="chat-btn" onclick="sendChatMessage()">Send</button>
+        <button
+          class="chat-btn"
+          onclick="sendChatMessage()"
+          aria-label="Send message"
+        >
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
       </div>
     </div>
 

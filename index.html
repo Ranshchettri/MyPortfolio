@@ -11,40 +11,28 @@
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/home.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
-    <!-- floating brand (top-left) -->
+  <body class="page-dark">
     <div class="brand-floating">Ransh</div>
 
-    <!-- centered pill nav (keeps Home/About/Resume/Skills/Projects/Contact) -->
     <nav class="icon-nav">
       <ul class="nav-links">
         <li>
-          <a href="index.html" aria-label="Home"
+          <a href="index.html" aria-label="Home" class="active"
             ><i class="fas fa-home"></i><span>Home</span></a
           >
         </li>
         <li>
-          <a href="about.html" aria-label="About"
-            ><i class="fas fa-user"></i><span>About</span></a
-          >
-        </li>
-        <li>
           <a href="resume.html" aria-label="Resume"
-            ><i class="fas fa-file-alt"></i><span>Resume</span></a
+            ><i class="fas fa-user"></i><span>Resume</span></a
           >
         </li>
         <li>
           <a href="skills.html" aria-label="Skills"
             ><i class="fas fa-brain"></i><span>Skills</span></a
-          >
-        </li>
-        <li>
-          <a href="projects.html" aria-label="Projects"
-            ><i class="fas fa-code"></i><span>Projects</span></a
           >
         </li>
         <li>
@@ -55,7 +43,6 @@
       </ul>
     </nav>
 
-    <!-- floating social icons (top-right) -->
     <div class="social-floating">
       <a
         href="https://www.facebook.com/aadarsha.karki.100236"
@@ -87,41 +74,59 @@
       ></a>
     </div>
 
-    <main class="home-main">
-      <!-- Left: Profile Card -->
-      <section class="home-left slide-in-left">
-        <!-- Profile Card Example -->
-        <div class="custom-profile-card">
-          <div class="profile-image-container">
-            <div class="custom-profile-image">
-              <img
-                src="image/image.png"
-                alt="Ransh chettri"
-                class="profile-photo"
-              />
+    <main class="home-page">
+      <section class="home-hero">
+        <section class="home-left slide-in-left">
+          <div class="custom-profile-card">
+            <div class="profile-image-container">
+              <div class="custom-profile-image">
+                <img
+                  src="image/image.png"
+                  alt="Ransh chettri"
+                  class="profile-photo"
+                />
+              </div>
+            </div>
+            <div class="name">Ransh chettri</div>
+            <p class="description typing-text">
+              <span id="typing-desc"></span><span class="typing-cursor">|</span>
+            </p>
+            <button
+              class="hire-btn"
+              onclick="window.location.href='contact.html'"
+            >
+              Hire Me
+            </button>
+            <div class="profile-mini-socials" aria-label="Profile communities">
+              <button
+                type="button"
+                class="profile-mini-social"
+                aria-label="Twitter"
+              >
+                <i class="fab fa-twitter"></i>
+              </button>
+              <button
+                type="button"
+                class="profile-mini-social"
+                aria-label="Reddit"
+              >
+                <i class="fab fa-reddit-alien"></i>
+              </button>
+              <button
+                type="button"
+                class="profile-mini-social"
+                aria-label="daily.dev"
+              >
+                <i class="fab fa-dev"></i>
+              </button>
             </div>
           </div>
-          <div class="name">Ransh chettri</div>
-          <p class="description typing-text">
-            <span id="typing-desc"></span><span class="typing-cursor">|</span>
-          </p>
-          <button
-            class="hire-btn"
-            onclick="window.location.href='contact.html'"
-          >
-            Hire Me
-          </button>
-        </div>
-      </section>
+        </section>
 
-      <!-- Right: Main Content -->
-      <section class="home-right">
-        <div class="container">
-          <!-- Title Section (no slide-down, just appear) -->
-          <div class="title-section slide-down" style="animation-delay: 0.4s">
-            <h1 class="title-main">SOFTWARE</h1>
+        <section class="home-right">
+          <div class="title-section slide-down">
+            <h1 class="title-main">SOF TWARE</h1>
             <h2 class="title-secondary">DEVELOPER</h2>
-            <!-- Add this wrapper for lines + description -->
             <div class="home-lines-desc-wrapper">
               <div class="home-desc-lines">
                 <div class="home-desc-line"></div>
@@ -130,83 +135,182 @@
               </div>
               <div class="home-desc-text">
                 Passionate about creating intuitive and engaging user
-                experiences.Specialize in transforming <br />
-                ideas into beautifully crafted products.
+                experiences.I specialize in turning bold ideas into thoughtful
+                products and modern digital interactions.
               </div>
             </div>
           </div>
-          <!-- Stats Section (NO slide-down here) -->
+
           <div class="stats-section">
             <div class="stat-item">
-              <span class="stat-number">+2</span>
+              <span class="stat-number">+3</span>
               <div class="stat-label">YEARS OF<br />EXPERIENCE</div>
             </div>
             <div class="stat-item">
-              <span class="stat-number">+6</span>
+              <span class="stat-number">+13</span>
               <div class="stat-label">PROJECTS<br />COMPLETED</div>
             </div>
             <div class="stat-item">
-              <span class="stat-number">+4</span>
+              <span class="stat-number">+24</span>
               <div class="stat-label">WORLDWIDE<br />CLIENTS</div>
             </div>
           </div>
-          <!-- Skills Cards Section -->
+
           <div class="cards-section">
-            <div
-              class="skill-card orange slide-in-right"
-              style="animation-delay: 0.3s"
-            >
-              <div class="skill-icon">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                >
-                  <path d="M3 3h18v18H3zM9 9h6v6H9z" />
-                  <path d="m15 3-6 6m12 0-6 6M9 21l6-6m-12 0 6-6" />
-                </svg>
+            <article class="skill-card orange slide-in-right">
+              <div class="skill-card-pattern wave-pattern" aria-hidden="true"></div>
+              <div class="skill-card-content">
+                <div class="skill-icon">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h3 class="skill-title">DYNAMIC ANIMATION,<br />MOTION DESIGN</h3>
+                <a class="skill-arrow" href="skills.html" aria-label="View skills">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
               </div>
-              <h3 class="skill-title">
-                DYNAMIC<br />
-                ANIMATION,<br />
-                MODERN & MOTION DESIGN
-              </h3>
-              <div class="skill-arrow">→</div>
-            </div>
-            <div
-              class="skill-card green slide-in-right"
-              style="animation-delay: 0.5s"
-            >
-              <div class="skill-icon">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
+            </article>
+
+            <article class="skill-card green slide-in-right">
+              <div
+                class="skill-card-pattern zigzag-pattern"
+                aria-hidden="true"
+              ></div>
+              <div class="skill-card-content">
+                <div class="skill-icon dark-icon">
+                  <i class="fa-regular fa-window-restore"></i>
+                </div>
+                <h3 class="skill-title">
+                  AI|ML, MERN,FIGMA, SYSTEMDESIGN<br />JAVA,PYTHON, WORDPRESS 
+                </h3>
+                <a
+                  class="skill-arrow dark-arrow"
+                  href="skills.html"
+                  aria-label="View skills"
                 >
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
               </div>
-              <h3 class="skill-title">
-                MERN,C,C#,<br />JAVA, PYTHON , WORDPRESS,JS<br />
-                PHOTOSHOP, FIGMA
-              </h3>
-              <div class="skill-arrow">→</div>
-            </div>
+            </article>
           </div>
-        </div>
+
+          <section class="home-projects" id="projects-section">
+            <div class="section-heading">
+              <span class="heading-bright">RECENT</span>
+              <span class="heading-muted">PROJECTS</span>
+            </div>
+
+            <div class="project-list">
+              <a class="project-row" href="resume.html#ovs-project">
+                <div class="project-thumb thumb-voting">
+                  <span class="thumb-title">OVS</span>
+                  <span class="thumb-meta">React | Node | MongoDB</span>
+                </div>
+                <div class="project-copy">
+                  <h3>Online Voting System</h3>
+                  <p>
+                    Secure role-based voting platform with 2FA verification and
+                    real-time result calculation.
+                  </p>
+                </div>
+                <span class="project-link-icon"
+                  ><i class="fa-solid fa-arrow-right"></i
+                ></span>
+              </a>
+
+              <a
+                class="project-row"
+                href="https://github.com/Ranshchettri/MobileVerses"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="project-thumb thumb-mobile">
+                  <span class="thumb-title">MobileVerses</span>
+                  <span class="thumb-meta">React | Django | MySQL</span>
+                </div>
+                <div class="project-copy">
+                  <h3>Mobile Shop Website</h3>
+                  <p>
+                    A simple e-commerce platform to sell phones and accessories.
+                  </p>
+                </div>
+                <span class="project-link-icon"
+                  ><i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></span>
+              </a>
+
+              <a
+                class="project-row"
+                href="https://github.com/Ranshchettri/BCA-4TH-semester-Project"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="project-thumb thumb-employee">
+                  <span class="thumb-title">EMS</span>
+                  <span class="thumb-meta">Dashboard | CRUD | Roles</span>
+                </div>
+                <div class="project-copy">
+                  <h3>Employee Management System</h3>
+                  <p>
+                    A system for managing employee attendance, leave requests, and
+                    notifications.
+                  </p>
+                </div>
+                <span class="project-link-icon"
+                  ><i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></span>
+              </a>
+
+              <a class="project-row" href="index.html">
+                <div class="project-thumb thumb-portfolio">
+                  <span class="thumb-title">Portfolio</span>
+                  <span class="thumb-meta">HTML | CSS | JavaScript</span>
+                </div>
+                <div class="project-copy">
+                  <h3>Portfolio Website</h3>
+                  <p>A personal portfolio to showcase skills and projects.</p>
+                </div>
+                <span class="project-link-icon"
+                  ><i class="fa-solid fa-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="home-about" id="about-section">
+            <div class="about-eyebrow"></div>
+            <div class="about-panel">
+              <div class="about-panel-head">
+                <h2>ABOUT<br />ME</h2>
+                <p>Student, builder, engineer and AI/ML specialist.</p>
+              </div>
+              <div class="about-panel-copy">
+                <p>
+                  Myself Ransh chettri, an ambitious IT student currently pursuing my
+                  Bachelor's in Computer Applications (BCA) from Itahari Green
+                  Peace College, affiliated with Tribhuvan University. With a deep
+                  curiosity for how technology shapes the world, I'm steadily
+                  mastering everything from frontend aesthetics to backend logic. I
+                  thrive on building functional, user-friendly web applications
+                  and enjoy solving real-world problems.
+                </p>
+                <p>
+                  I'm still a student, but I don't wait for a degree to define my
+                  potential. I've already developed multiple projects including a
+                  mobile shop system with real-time chat and integrated payments,
+                  proving that passion can beat experience. I believe in learning
+                  by doing, constantly sharpening my skills across programming
+                  languages, frameworks, and UI/UX tools. With eyes set on
+                  becoming a software developer and AI/ML specialist, I'm
+                  committed to staying ahead in this ever-evolving digital game.
+                </p>
+              </div>
+            </div>
+          </section>
+        </section>
       </section>
     </main>
 
-    <!-- Chatbot Section -->
-    <div id="chatbot">💬</div>
+    <div id="chatbot"><i class="fa-solid fa-comment-dots"></i></div>
     <div id="chatbox">
       <button id="chatbox-close">X</button>
       <div class="chat-message bot">
@@ -222,12 +326,15 @@
           placeholder="Ask me anything..."
           id="chat-input"
         />
-        <button class="chat-btn" onclick="sendChatMessage()">Send</button>
+        <button
+          class="chat-btn"
+          onclick="sendChatMessage()"
+          aria-label="Send message"
+        >
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
       </div>
     </div>
-
-    <!-- Custom Cursor -->
-    <div id="custom-cursor"></div>
 
     <script src="js/script.js"></script>
   </body>

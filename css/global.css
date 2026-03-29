@@ -10,6 +10,118 @@ body {
   line-height: 1.6;
   background: #fff;
   color: #333;
+  transition: background-color 0.56s ease, color 0.56s ease;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.56s ease;
+  z-index: 1400;
+}
+
+body.page-dark::after {
+  background: #090807;
+}
+
+body.page-light::after {
+  background: #f4f3ef;
+}
+
+body main,
+body nav,
+body .brand-floating,
+body .social-floating,
+body .social-icons,
+body #chatbot,
+body #chatbox {
+  transition: transform 0.56s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.56s ease, filter 0.56s ease;
+}
+
+body.page-transitioning {
+  overflow: hidden;
+}
+
+body.page-transitioning::after {
+  opacity: 1;
+}
+
+body.page-transitioning main,
+body.page-transitioning nav,
+body.page-transitioning .brand-floating,
+body.page-transitioning .social-floating,
+body.page-transitioning .social-icons,
+body.page-transitioning #chatbot,
+body.page-transitioning #chatbox {
+  opacity: 0;
+  filter: blur(5px);
+}
+
+body.page-transition-forward main,
+body.page-transition-forward nav,
+body.page-transition-forward .brand-floating,
+body.page-transition-forward .social-floating,
+body.page-transition-forward .social-icons,
+body.page-transition-forward #chatbot,
+body.page-transition-forward #chatbox {
+  transform: translateY(-78px);
+}
+
+body.page-transition-backward main,
+body.page-transition-backward nav,
+body.page-transition-backward .brand-floating,
+body.page-transition-backward .social-floating,
+body.page-transition-backward .social-icons,
+body.page-transition-backward #chatbot,
+body.page-transition-backward #chatbox {
+  transform: translateY(78px);
+}
+
+body.page-pre-enter main,
+body.page-pre-enter nav,
+body.page-pre-enter .brand-floating,
+body.page-pre-enter .social-floating,
+body.page-pre-enter .social-icons,
+body.page-pre-enter #chatbot,
+body.page-pre-enter #chatbox {
+  opacity: 0;
+  filter: blur(5px);
+}
+
+body.page-pre-enter-next main,
+body.page-pre-enter-next nav,
+body.page-pre-enter-next .brand-floating,
+body.page-pre-enter-next .social-floating,
+body.page-pre-enter-next .social-icons,
+body.page-pre-enter-next #chatbot,
+body.page-pre-enter-next #chatbox {
+  transform: translateY(78px);
+}
+
+body.page-pre-enter-prev main,
+body.page-pre-enter-prev nav,
+body.page-pre-enter-prev .brand-floating,
+body.page-pre-enter-prev .social-floating,
+body.page-pre-enter-prev .social-icons,
+body.page-pre-enter-prev #chatbot,
+body.page-pre-enter-prev #chatbox {
+  transform: translateY(-78px);
+}
+
+body.page-enter-active main,
+body.page-enter-active nav,
+body.page-enter-active .brand-floating,
+body.page-enter-active .social-floating,
+body.page-enter-active .social-icons,
+body.page-enter-active #chatbot,
+body.page-enter-active #chatbox {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
 }
 
 a {
@@ -264,6 +376,14 @@ nav .social-icons a:hover {
   border: none !important;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   border-radius: 18px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#chatbox::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 #chatbox-close {
@@ -375,7 +495,7 @@ nav .social-icons a:hover {
   width: 56px;
   height: 48px;
   padding: 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
@@ -385,10 +505,9 @@ nav .social-icons a:hover {
   justify-content: center;
 }
 
-.chat-btn svg {
-  display: block;
-  width: 28px;
-  height: 28px;
+.chat-btn i {
+  font-size: 1rem;
+  transform: translateX(1px);
 }
 
 .span-full {
@@ -446,8 +565,54 @@ footer p {
 }
 
 .brand-floating {
-  color: rgb(27, 26, 26);
   position: fixed;
+}
+
+body.page-dark .brand-floating {
+  color: #f0eadf !important;
+}
+
+body.page-light .brand-floating {
+  color: rgb(27, 26, 26) !important;
+}
+
+.social-floating,
+.social-icons {
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1.3rem !important;
+  z-index: 1200 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.social-floating a,
+.social-icons a {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  font-size: 0.82rem !important;
+  transform: none !important;
+}
+
+body.page-dark .social-floating a,
+body.page-dark .social-icons a {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.page-light .social-icons a {
+  color: rgba(19, 19, 19, 0.92) !important;
+}
+
+.social-floating a:hover,
+.social-icons a:hover {
+  color: #ff7c48 !important;
 }
 
 .home-main,
@@ -456,4 +621,67 @@ footer p {
 .resume,
 .contact {
   padding-top: 6.5rem !important; /* adjust if needed */
+}
+
+/* Final nav + social overrides */
+.icon-nav {
+  position: fixed !important;
+  top: 3.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1200 !important;
+  width: max-content !important;
+  max-width: calc(100vw - 1rem) !important;
+}
+
+.icon-nav .nav-links {
+  overflow: visible !important;
+  overflow-x: visible !important;
+  flex-wrap: nowrap !important;
+  width: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  justify-content: center !important;
+}
+
+.icon-nav .nav-links li a {
+  position: relative !important;
+}
+
+.icon-nav .nav-links li a span {
+  top: calc(100% + 0.24rem) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.icon-nav .nav-links li a:hover span,
+.icon-nav .nav-links li a:focus-visible span {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+body.page-dark .icon-nav .nav-links li a span {
+  color: #f3ede1 !important;
+}
+
+body.page-light .icon-nav .nav-links li a span {
+  color: #141414 !important;
+}
+
+.social-floating,
+.social-icons {
+  top: 0.95rem !important;
+  right: 1.2rem !important;
+  gap: 0.86rem !important;
+}
+
+.social-floating a,
+.social-icons a {
+  font-size: 1.18rem !important;
 }

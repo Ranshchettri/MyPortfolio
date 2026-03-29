@@ -1,452 +1,153 @@
-@keyframes bounceIn {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  80% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes slideDownIn {
-  0% {
-    transform: translateY(-80px);
-    opacity: 0;
-  }
-  80% {
-    transform: translateY(8px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes slideLeftIn {
-  0% {
-    transform: translateX(-120px);
-    opacity: 0;
-  }
-  80% {
-    transform: translateX(12px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+body {
+  min-height: 100vh;
+  background: #080808;
+  color: #ddd6ca;
 }
 
-body,
-.skills {
-  min-height: 0 !important;
-}
-
-.skills {
-  padding-bottom: 0.5rem !important;
-  margin-bottom: 0 !important;
-  position: relative;
-  overflow: hidden;
-  background: #d1d5db;
-  color: #222;
-  padding: 5.5rem 1rem 1.5rem 1rem; /* More top padding, less bottom padding */
-  min-height: 60vh;
-}
-
-/* blurred bokeh bubbles layer to mimic the example screenshot */
-.skills::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Removed colorful bokeh */
-  background: none;
-  filter: none;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ensure grid and content sit above the bubbles */
-.skills-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  max-width: 1200px;
+.skills-page-main {
+  width: min(1820px, calc(100% - 2.3rem));
   margin: 0 auto;
-  margin-bottom: 0; /* Remove extra margin or padding from the bottom of the grid if present */
-  padding-bottom: 0;
+  padding: 7.35rem 0 4rem;
 }
 
-/* glassmorphic panel for the skill groups (transparent + blur + bokeh highlights) */
-.skills-group {
-  position: relative;
-  overflow: hidden; /* keep effects inside the panel */
-  padding: 2rem 1.5rem 1.5rem;
-  margin-bottom: 1.5rem;
-  border-radius: 16px;
-
-  /* frosted glass base - more transparent for better blur visibility */
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.01)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  /* heavy blur for the backdrop (supported browsers) */
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-
-  /* soft outer shadow + subtle inset highlight */
-  box-shadow: 0 18px 40px rgba(4, 6, 12, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  color: inherit;
-  z-index: 0;
-  animation: slideLeftIn 2.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-/* soft inner glass rim */
-.skills-group::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px; /* creates inner ring using background-clip */
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.01)
-  );
-  -webkit-mask: linear-gradient(#000, #000) content-box,
-    linear-gradient(#000, #000);
-  mask: linear-gradient(#000, #000) content-box,
-    linear-gradient(#000, #000);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: normal;
-}
-
-/* bright soft highlights / bokeh spots to mimic the examples */
-.skills-group::after {
-  content: "";
-  position: absolute;
-  left: -20%;
-  top: -30%;
-  width: 180%;
-  height: 160%;
-  pointer-events: none;
-  z-index: 0;
-  /* Remove colored highlights inside panels */
-  background: none;
-  filter: none;
-  opacity: 0;
-}
-
-/* ensure text and child elements sit above decorative layers */
-.skills-group > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* headings & description */
-.skills-group h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  color: #222;
-}
-.skills-desc {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 1.2rem;
-}
-
-/* skill box: dark rounded pill with icon on colored badge */
-.skills-box-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-}
-.skill-box {
-  background: #222;
-  color: #fff;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 0.5rem;
-  min-width: 160px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
-  transition: background 0.2s;
-}
-
-/* Make Professional Skills show 2 items per row */
-.professional-skills .skills-box-list {
+.skills-layout {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(620px, 1fr) minmax(670px, 1.04fr);
+  gap: 3.2rem;
   align-items: start;
 }
 
-/* Ensure each skill box fits the grid cell */
-.professional-skills .skill-box {
+.skills-word-stack {
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.55rem;
+}
+
+.skills-word-stack span {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(6.45rem, 8.15vw, 8.55rem);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  line-height: 0.9;
+  color: #d8d2c7;
+  white-space: nowrap;
+}
+
+.skills-word-stack span + span {
+  margin-top: 0;
+}
+
+.skills-side {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 0.35rem;
+}
+
+.skills-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(4.7rem, 5.8vw, 6.4rem);
+  font-weight: 900;
+  letter-spacing: -0.09em;
+  line-height: 0.86;
+  color: #d8d2c7;
+  margin-bottom: 2.1rem;
+  text-align: center;
+  align-self: center;
+}
+
+.skills-columns {
   width: 100%;
-  box-sizing: border-box;
+  max-width: 930px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.25rem;
 }
 
-/* Optional: adjust subtitle spacing inside boxes */
-.professional-skills .skill-box-sub {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.7);
+.skills-column h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #e4ddd2;
+  margin-bottom: 1.55rem;
 }
 
-/* icon badge */
-.skill-icon {
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 18px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.25);
+.skills-column ul {
+  list-style: none;
 }
 
-/* label and subtext */
-.skill-label {
-  font-size: 1rem;
-  font-weight: 600;
-}
-.skill-box-sub {
-  font-size: 0.95rem;
-  color: #b3b3b3;
-  margin-top: 0.3rem;
-  font-weight: 400;
-  display: block;
-}
-
-/* wide professional boxes layout */
-.skill-box-wide {
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 220px;
-  max-width: 260px;
-  gap: 1rem;
-  padding: 1rem;
-}
-.skill-text {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Colored icon badges - quick palette, add more classes if needed */
-.skill-icon.react {
-  background: linear-gradient(135deg, #61dafb, #2b90ff);
-  color: #07203a;
-}
-.skill-icon.nextjs {
-  background: linear-gradient(135deg, #111, #3b3b3b);
-  color: #fff;
-}
-.skill-icon.ts {
-  background: linear-gradient(135deg, #007acc, #00a3ff);
-  color: #fff;
-}
-.skill-icon.tailwind {
-  background: linear-gradient(135deg, #38b2ac, #0ea5a9);
-  color: #042826;
-}
-.skill-icon.firebase {
-  background: linear-gradient(135deg, #f6a623, #ff6b00);
-  color: #2b1600;
-}
-.skill-icon.mongo {
-  background: linear-gradient(135deg, #3fa037, #1b6b2d);
-  color: #041b08;
-}
-.skill-icon.supabase {
-  background: linear-gradient(135deg, #2ee6b6, #00c2b3);
-  color: #052826;
-}
-.skill-icon.convex {
-  background: linear-gradient(135deg, #f97316, #ef4444);
-  color: #2a0f06;
-}
-.skill-icon.docker {
-  background: linear-gradient(135deg, #2496ed, #0b5f9e);
-  color: #fff;
-}
-.skill-icon.github {
-  background: linear-gradient(135deg, #24292e, #475056);
-  color: #fff;
-}
-.skill-icon.rest {
-  background: linear-gradient(135deg, #7c3aed, #4f46e5);
-  color: #fff;
-}
-.skill-icon.figma {
-  background: linear-gradient(135deg, #ff6b6b, #a855f7);
-  color: #fff;
-}
-.skill-icon.aws {
-  background: linear-gradient(135deg, #ff9900, #f59e0b);
-  color: #2b1700;
-}
-
-/* professional skill icons */
-.skill-icon.problem {
-  background: linear-gradient(135deg, #7c3aed, #06b6d4);
-  color: #fff;
-  border-radius: 12px;
-}
-.skill-icon.team {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-  color: #fff;
-  border-radius: 12px;
-}
-.skill-icon.time {
-  background: linear-gradient(135deg, #10b981, #34d399);
-  color: #042f1f;
-  border-radius: 12px;
-}
-.skill-icon.design {
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-  color: #221100;
-  border-radius: 12px;
-}
-
-/* new category styles */
-.skills-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-.skill-category {
-  flex: 1 1 300px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-}
-.skill-category h3 {
-  color: #222;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-.skill-box-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.skill-box {
-  background: #f1f1f1;
-  color: #222;
-  border-radius: 8px;
-  padding: 0.7rem 1.2rem;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+.skills-column li {
+  font-family: "Courier New", monospace;
+  font-size: 0.98rem;
+  color: #b3ab9d;
+  line-height: 1.72;
   margin-bottom: 0.5rem;
 }
-.skill-box i {
-  font-size: 1.2rem;
-}
 
-/* Fix social icons to top-right corner */
-.social-icons {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  gap: 10px;
-  z-index: 9999;
-  background: transparent;
-  padding: 6px 8px;
-  border-radius: 8px;
-  align-items: center;
-  pointer-events: auto;
-}
-.social-icons a {
-  color: #fff;
-  background: rgba(0, 0, 0, 0.35);
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-.social-icons a:hover {
-  transform: translateY(-3px);
-  background: rgba(0, 0, 0, 0.5);
-}
+@media (max-width: 1500px) {
+  .skills-page-main {
+    width: min(100%, calc(100% - 2rem));
+  }
 
-/* Responsive tweaks */
-@media (max-width: 900px) {
-  .social-icons {
-    top: 10px;
-    right: 10px;
+  .skills-layout {
+    grid-template-columns: minmax(520px, 1fr) minmax(0, 1fr);
+    gap: 2.35rem;
   }
-  .social-icons a {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-  }
-}
-@media (max-width: 480px) {
-  /* place absolute if you want it inside nav flow on very small screens */
-  .social-icons {
-    position: fixed;
-    top: 8px;
-    right: 8px;
+
+  .skills-word-stack span {
+    font-size: clamp(5.3rem, 7vw, 7.1rem);
   }
 }
 
-/* responsive */
-@media (max-width: 900px) {
-  .skills-grid {
+@media (max-width: 1180px) {
+  .skills-layout {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2.1rem;
   }
-  .skills-group {
-    padding: 1.2rem;
+
+  .skills-word-stack {
+    padding-top: 0.5rem;
   }
-  .skill-box-wide {
-    min-width: 100%;
+
+  .skills-word-stack span {
+    white-space: normal;
   }
-  .skill-box {
-    min-width: calc(50% - 1rem);
-  }
-}
-@media (max-width: 480px) {
-  .skill-box {
-    min-width: 100%;
+
+  .skills-side {
+    align-items: stretch;
   }
 }
 
+@media (max-width: 860px) {
+  .skills-columns {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .skills-page-main {
+    width: min(100%, calc(100% - 1.2rem));
+    padding-top: 6.8rem;
+  }
+
+  .skills-word-stack span {
+    font-size: clamp(3.7rem, 13vw, 5rem);
+    letter-spacing: -0.11em;
+  }
+
+  .skills-title {
+    font-size: clamp(3.8rem, 15vw, 5.2rem);
+  }
+
+  .skills-column h2 {
+    font-size: 1.08rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .skills-column li {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+}

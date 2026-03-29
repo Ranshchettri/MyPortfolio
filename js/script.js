@@ -15,6 +15,8 @@ const chatboxClose = document.getElementById("chatbox-close");
 const chatQuestionsDiv = document.getElementById("chat-questions");
 const chatInput = document.getElementById("chat-input");
 const chatMessages = document.getElementById("chat-messages");
+const contactForm = document.getElementById("contact-form");
+const contactStatus = document.getElementById("contact-status");
 
 if (chatbot && chatbox) {
   chatbot.addEventListener("click", function () {
@@ -192,14 +194,331 @@ document.querySelectorAll(".skill-arrow").forEach((arrow) => {
   });
 });
 
+function updateContactStatus(message, type = "info") {
+  if (!contactStatus) return;
 
-      const ball = document.getElementById("about-bg-ball");
-      document.addEventListener("mousemove", (e) => {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        ball.style.left = `${x}%`;
-        ball.style.top = `${y}%`;
-      });
+  contactStatus.textContent = message;
+  contactStatus.className = `contact-status ${type}`;
+}
+
+function buildMailtoLink(name, email, message) {
+  const subject = `Portfolio inquiry from ${name}`;
+  const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+  return `mailto:ranshchettri788@gmail.com?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+}
+
+async function sendContactMessage(event) {
+  if (event) event.preventDefault();
+  if (!contactForm) return;
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const name = contactForm.elements.name.value.trim();
+  const email = contactForm.elements.email.value.trim();
+  const message = contactForm.elements.message.value.trim();
+
+  if (!name || !email || !message) {
+    updateContactStatus("Please fill in your name, email, and message.", "error");
+    return;
+  }
+
+  const originalLabel = submitButton ? submitButton.textContent : "";
+  const mailtoLink = buildMailtoLink(name, email, message);
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+  }
+  updateContactStatus("Sending your message...", "pending");
+
+  // Static sites cannot send mail on their own, so we use FormSubmit when
+  // the page is served over HTTP(S), then fall back to the visitor's mail app.
+  const shouldUseMailtoFallback = window.location.protocol === "file:";
+
+  if (shouldUseMailtoFallback) {
+    updateContactStatus(
+      "Local preview cannot send directly. Opening your email app as fallback.",
+      "info"
+    );
+    window.location.href = mailtoLink;
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalLabel;
+    }
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://formsubmit.co/ajax/ranshchettri788@gmail.com",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `Portfolio inquiry from ${name}`,
+          _replyto: email,
+          _template: "table",
+        }),
+      }
+    );
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.success === false || result.success === "false") {
+      throw new Error(result.message || "Unable to send message right now.");
+    }
+
+    contactForm.reset();
+    updateContactStatus(
+      "Message sent successfully. I will get back to you soon.",
+      "success"
+    );
+  } catch (error) {
+    updateContactStatus(
+      "Direct send was unavailable here. Opening your email app as backup.",
+      "error"
+    );
+    window.location.href = mailtoLink;
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalLabel;
+    }
+  }
+}
+
+if (contactForm) {
+  contactForm.addEventListener("submit", sendContactMessage);
+}
+
+const autoPageSequence = [
+  "index.html",
+  "resume.html",
+  "skills.html",
+  "contact.html",
+];
+const PAGE_TRANSITION_STORAGE_KEY = "portfolio-page-transition";
+let pageTransitionInProgress = false;
+let touchStartY = null;
+let edgeScrollAccumulator = 0;
+let edgeScrollDirection = null;
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+function getCurrentPageName() {
+  const path = window.location.pathname.split("/").pop();
+  return path || "index.html";
+}
+
+function getNextPageName() {
+  const currentPage = getCurrentPageName();
+  const currentIndex = autoPageSequence.indexOf(currentPage);
+
+  if (currentIndex === -1 || currentIndex === autoPageSequence.length - 1) {
+    return null;
+  }
+
+  return autoPageSequence[currentIndex + 1];
+}
+
+function getPreviousPageName() {
+  const currentPage = getCurrentPageName();
+  const currentIndex = autoPageSequence.indexOf(currentPage);
+
+  if (currentIndex <= 0) {
+    return null;
+  }
+
+  return autoPageSequence[currentIndex - 1];
+}
+
+function isNearTop() {
+  return window.scrollY <= 4;
+}
+
+function isNearBottom() {
+  return (
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 4
+  );
+}
+
+function shouldIgnoreAutoPageTarget(target) {
+  if (!(target instanceof Element)) return false;
+
+  return Boolean(
+    target.closest(
+      "nav, #chatbox, #chatbot, input, textarea, button, a, iframe, .chat-input-area"
+    )
+  );
+}
+
+function getTransitionScrollTop(direction) {
+  if (direction === "backward") {
+    return Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      0
+    );
+  }
+
+  return 0;
+}
+
+function jumpToTransitionEdge(direction) {
+  window.scrollTo(0, getTransitionScrollTop(direction));
+}
+
+function applyStoredPageEntryTransition() {
+  const storedDirection = sessionStorage.getItem(PAGE_TRANSITION_STORAGE_KEY);
+  if (!storedDirection) return;
+
+  jumpToTransitionEdge(storedDirection);
+
+  const isForward = storedDirection === "forward";
+  document.body.classList.add(
+    "page-pre-enter",
+    isForward ? "page-pre-enter-next" : "page-pre-enter-prev"
+  );
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("page-enter-active");
+    });
+  });
+
+  window.addEventListener(
+    "load",
+    function () {
+      jumpToTransitionEdge(storedDirection);
+    },
+    { once: true }
+  );
+
+  window.setTimeout(() => {
+    document.body.classList.remove(
+      "page-pre-enter",
+      "page-pre-enter-next",
+      "page-pre-enter-prev",
+      "page-enter-active"
+    );
+    sessionStorage.removeItem(PAGE_TRANSITION_STORAGE_KEY);
+  }, 620);
+}
+
+function resetEdgeScrollState() {
+  edgeScrollAccumulator = 0;
+  edgeScrollDirection = null;
+}
+
+function triggerPageTransition(direction) {
+  const targetPage =
+    direction === "forward" ? getNextPageName() : getPreviousPageName();
+
+  if (!targetPage || pageTransitionInProgress) return;
+  if (chatbox && chatbox.style.display === "block") return;
+
+  pageTransitionInProgress = true;
+  sessionStorage.setItem(PAGE_TRANSITION_STORAGE_KEY, direction);
+  document.body.classList.add(
+    "page-transitioning",
+    direction === "forward"
+      ? "page-transition-forward"
+      : "page-transition-backward"
+  );
+
+  window.setTimeout(() => {
+    window.location.href = targetPage;
+  }, 520);
+}
+
+function handleEdgeScroll(deltaY, target) {
+  if (pageTransitionInProgress || shouldIgnoreAutoPageTarget(target)) return;
+  if (chatbox && chatbox.style.display === "block") return;
+
+  const attemptingForward = deltaY > 20 && isNearBottom();
+  const attemptingBackward = deltaY < -20 && isNearTop();
+
+  if (!attemptingForward && !attemptingBackward) {
+    resetEdgeScrollState();
+    return;
+  }
+
+  const direction = attemptingForward ? "forward" : "backward";
+  const strength = Math.abs(deltaY);
+
+  if (edgeScrollDirection !== direction) {
+    edgeScrollDirection = direction;
+    edgeScrollAccumulator = 0;
+  }
+
+  edgeScrollAccumulator += strength;
+
+  if (edgeScrollAccumulator >= 130) {
+    resetEdgeScrollState();
+    triggerPageTransition(direction);
+  }
+}
+
+window.addEventListener(
+  "wheel",
+  function (event) {
+    handleEdgeScroll(event.deltaY, event.target);
+  },
+  { passive: true }
+);
+
+window.addEventListener(
+  "touchstart",
+  function (event) {
+    if (!event.touches.length) return;
+    touchStartY = event.touches[0].clientY;
+  },
+  { passive: true }
+);
+
+window.addEventListener(
+  "touchmove",
+  function (event) {
+    if (touchStartY === null || !event.touches.length) return;
+    if (shouldIgnoreAutoPageTarget(event.target)) return;
+
+    const swipeDistance = touchStartY - event.touches[0].clientY;
+    if (swipeDistance > 54 && isNearBottom()) {
+      resetEdgeScrollState();
+      triggerPageTransition("forward");
+      touchStartY = null;
+      return;
+    }
+
+    if (swipeDistance < -54 && isNearTop()) {
+      resetEdgeScrollState();
+      triggerPageTransition("backward");
+      touchStartY = null;
+    }
+  },
+  { passive: true }
+);
+
+window.addEventListener(
+  "touchend",
+  function () {
+    touchStartY = null;
+    resetEdgeScrollState();
+  },
+  { passive: true }
+);
+
+document.addEventListener("DOMContentLoaded", applyStoredPageEntryTransition);
 
 // Stats counter animation on page load
 window.addEventListener("load", function () {

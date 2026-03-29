@@ -95,6 +95,102 @@
   margin-bottom: 0.5rem;
 }
 
+.project-entry + .project-entry {
+  margin-top: 1.6rem;
+}
+
+.certificate-links {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.certificate-links-static {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.certificate-link-static {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  color: #1f2937;
+  margin: 0 0 0.2rem 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
+  text-align: left !important;
+  text-justify: auto !important;
+  line-height: 1.45;
+}
+
+.certificate-link {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #1f2937;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.certificate-link:hover,
+.certificate-link.active {
+  color: #2563eb;
+  transform: translateX(4px);
+}
+
+.certificate-link-disabled {
+  color: #6b7280;
+  cursor: default;
+}
+
+.certificate-link-disabled:hover {
+  color: #6b7280;
+  transform: none;
+}
+
+.certificate-viewer {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 16px;
+  background: #f3f7ff;
+  border: 1px solid #dbeafe;
+}
+
+.certificate-viewer-head h3 {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.certificate-viewer-head p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.certificate-frame {
+  display: none;
+  width: 100%;
+  height: 420px;
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.08);
+}
+
+.certificate-viewer.has-selection .certificate-frame {
+  display: block;
+}
+
 .resume-section ul {
   list-style-type: none;
   padding-left: 1rem;
@@ -205,5 +301,17 @@
   .resume-left,
   .resume-right {
     width: 100%;
+  }
+
+  .resume {
+    padding: 5.5rem 1rem 2rem;
+  }
+
+  .resume-section {
+    padding-left: 2rem;
+  }
+
+  .certificate-frame {
+    height: 320px;
   }
 }
