@@ -32,10 +32,10 @@ if (chatboxClose && chatbox) {
 // Pre-defined chatbot questions and answers
 const chatbotResponses = {
   "who are you":
-    "Hey,Myself Ransh sunuwar, a future software and web developer with AI/ML specialist. I am passionate about learning new technologies and building functional websites.",
+    "Hey,Myself Ransh Chettri, a software and web developer with AI/ML specialist. I am passionate about learning new technologies and building functional websites.",
 
   "what are your skills":
-    "I have skills in C, C++, C#, HTML, CSS, JavaScript, PHP, React, Python, and various web development tools. I am also gaining knowledge in AI, machine learning, and data structures.",
+    "I have skills in C, C#, JavaScript, Java, MERN Stack, Python, and various web development tools. I am also gaining knowledge in AI, machine learning, and data structures.",
   "what is your educational background":
     "I am currently pursuing a BCA (Bachelor of Computer Applications). I am learning programming languages, web development, and AI.",
   "what projects have you worked on":
@@ -51,7 +51,7 @@ const chatbotResponses = {
   "how can i collaborate with you on a project":
     "You can reach out to me via the contact form on my website, or you can message me directly through this chat. I'd love to discuss any project collaboration opportunities.",
   "where do you study":
-    "I study at Itahari Namuna collage , pursuing a Bachelor of Computer Applications (BCA) in TU.",
+    "I study at Itahari Peace collage , pursuing a Bachelor of Computer Applications (BCA) in TU.",
 };
 
 // Populate chat questions

@@ -354,11 +354,11 @@ body {
 
 .project-row {
   display: grid;
-  grid-template-columns: 66px minmax(0, 1fr) auto;
-  gap: 1rem;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  gap: 1.2rem;
   align-items: center;
-  border-radius: 12px;
-  padding: 0.32rem 0.35rem;
+  border-radius: 18px;
+  padding: 0.5rem 0.6rem;
   transition: transform 0.22s ease, background-color 0.22s ease;
 }
 
@@ -372,15 +372,49 @@ body {
 }
 
 .project-thumb {
-  width: 66px;
-  aspect-ratio: 1 / 1;
-  border-radius: 11px;
+  width: 112px;
+  min-height: 128px;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
   padding: 0.35rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.project-poster {
+  background-color: #111;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.project-poster::before,
+.project-poster::after {
+  display: none;
+}
+
+.project-poster .thumb-title,
+.project-poster .thumb-meta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.poster-ovs {
+  background-image: url("../image/project-banners/ovs-banner.png");
+  background-position: center top;
+}
+
+.poster-mobileverse {
+  background-image: url("../image/project-banners/mobileverse-banner.png");
+  background-position: center top;
+}
+
+.poster-portfolio {
+  background-image: url("../image/project-banners/portfolio-banner.png");
+  background-position: center top;
 }
 
 .project-thumb::before {
@@ -680,12 +714,17 @@ body {
   }
 
   .project-row {
-    grid-template-columns: 66px minmax(0, 1fr);
+    grid-template-columns: 84px minmax(0, 1fr);
   }
 
   .project-link-icon {
     grid-column: 2;
     justify-self: end;
+  }
+
+  .project-thumb {
+    width: 84px;
+    min-height: 96px;
   }
 
   .about-panel {
