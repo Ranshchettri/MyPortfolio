@@ -8,7 +8,7 @@ The site is built with plain HTML, CSS, and JavaScript, and it is now organized 
 - `Skills`
 - `Contact`
 
-## Current Website Style
+
 
 The portfolio currently follows a bold dark/light split style:
 
