@@ -5,7 +5,7 @@ The site is built with plain HTML, CSS, and JavaScript, and it is now organized 
 
 - `Home`
 - `Resume`
-- `Skills`
+- 
 - `Contact`
 
 ## Current Website Style
