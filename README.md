@@ -1,4 +1,4 @@
-# Ransh Portfolio...
+# Ransh Portfolio..
 
 This repository contains the current version of my personal portfolio website.  
 The site is built with plain HTML, CSS, and JavaScript, and it is now organized around four connected pages:
