@@ -29,29 +29,110 @@ if (chatboxClose && chatbox) {
   });
 }
 
-// Pre-defined chatbot questions and answers
+const portfolioOwnerEmail = "ranshchettri788@gmail.com";
+
+// Frontend-only portfolio assistant. Do not place real AI API keys here;
+// add a small backend endpoint and expose it as window.PORTFOLIO_AI_ENDPOINT.
 const chatbotResponses = {
   "who are you":
-    "Hey,Myself Ransh Chettri, a software and web developer with AI/ML specialist. I am passionate about learning new technologies and building functional websites.",
-
+    "Ransh Chettri is a Nepal-based BCA student, software and web developer, and AI/ML-focused builder. He works on practical web apps, UI/UX, backend logic, and real-world projects.",
   "what are your skills":
-    "I have skills in C, C#, JavaScript, Java, MERN Stack, Python, and various web development tools. I am also gaining knowledge in AI, machine learning, and data structures.",
+    "Core skills include C, Java, Python, JavaScript, MERN stack, Django, MySQL, MongoDB, Figma, Canva, Git, GitHub, WordPress, Android Studio, Vercel, Docker, AI/ML, and system design basics.",
   "what is your educational background":
-    "I am currently pursuing a BCA (Bachelor of Computer Applications). I am learning programming languages, web development, and AI.",
+    "Ransh is pursuing Bachelor of Computer Applications (BCA), affiliated with Tribhuvan University in Nepal.",
   "what projects have you worked on":
-    "I have worked on several projects, including an E-commerce website, a mobile shop website, and an employee management system. You can find more details on my portfolio page.",
+    "Recent projects include Online Voting System, Mobile Shop Website, Employee Management System, and this Portfolio Website.",
   "what are your goals for the future":
-    "My future goal is to become a software engineer, specializing in Artificial Intelligence and Machine Learning. I also plan to pursue a Master's in IT after completing my BCA.",
+    "Ransh's goal is to become a strong software developer and AI/ML specialist who can build practical, scalable products.",
   "how can i contact you":
-    "You can contact me through the contact form on my website, or you can send me a message directly. I will respond to your inquiry as soon as possible.",
+    "You can contact Ransh from the Contact page, by email at ranshchettri788@gmail.com, or by phone at +977 9706574669.",
   "what are your hobbies":
-    "In my free time, I love working on coding projects, learning new technologies, and solving programming challenges. I also enjoy playing games and watching tech-related content.",
+    "Ransh spends free time building coding projects, learning new technologies, solving programming problems, playing games, and watching tech content.",
   "do you have any certifications":
-    "Yes, I have completed online courses and certifications in web development, programming languages, and machine learning. I am always looking for opportunities to improve my skills.",
+    "Yes. Ransh has Oracle Architect, Oracle GenAI, Java, React Development, and UI/UX certifications/courses listed in the resume section.",
   "how can i collaborate with you on a project":
-    "You can reach out to me via the contact form on my website, or you can message me directly through this chat. I'd love to discuss any project collaboration opportunities.",
+    "Send your project idea through the Contact page or ask for a meeting here. Share project type, timeline, budget range, and preferred contact email.",
   "where do you study":
-    "I study at Itahari Peace collage , pursuing a Bachelor of Computer Applications (BCA) in TU.",
+    "Ransh studies BCA under Tribhuvan University in Nepal.",
+  "schedule a meeting":
+    "For a meeting, send your name, company, project topic, preferred date/time, and email. I can prepare a direct email draft to Ransh.",
+};
+
+const portfolioTopics = [
+  "ransh",
+  "portfolio",
+  "project",
+  "skill",
+  "education",
+  "study",
+  "bca",
+  "contact",
+  "email",
+  "phone",
+  "hire",
+  "collaborate",
+  "meeting",
+  "schedule",
+  "certification",
+  "resume",
+  "ai",
+  "ml",
+  "mern",
+  "django",
+  "java",
+  "python",
+  "figma",
+  "github",
+  "voting",
+  "mobile",
+  "employee",
+  "website",
+  "budget",
+  "proposal",
+  "deal",
+  "client",
+  "company",
+];
+
+const leadCaptureFields = [
+  {
+    key: "name",
+    label: "Your name",
+    prompt: "Sure. First, please send your full name.",
+  },
+  {
+    key: "company",
+    label: "Company / role",
+    prompt: "Company name or your role?",
+  },
+  {
+    key: "email",
+    label: "Company email",
+    prompt: "Send your company/work email so Ransh can reply.",
+    validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+    error: "That email does not look valid. Please send a proper company/work email.",
+  },
+  {
+    key: "topic",
+    label: "Project / meeting topic",
+    prompt: "What do you want to discuss: website, AI/ML, MERN, Django, portfolio, or another project?",
+  },
+  {
+    key: "time",
+    label: "Preferred time",
+    prompt: "Preferred meeting date and time? Example: 2026-05-13 10:30 AM.",
+  },
+  {
+    key: "budget",
+    label: "Budget / urgency",
+    prompt: "Optional but useful: budget range or urgency. If not fixed, type 'not fixed'.",
+  },
+];
+
+let leadCaptureState = {
+  active: false,
+  step: 0,
+  data: {},
 };
 
 // Populate chat questions
@@ -74,34 +155,336 @@ function populateChatQuestions() {
   });
 }
 
+function appendChatMessage(type, text, action) {
+  if (!chatMessages) return null;
+
+  const message = document.createElement("div");
+  message.classList.add("chat-message", type);
+  message.textContent = text;
+
+  if (action) {
+    const actions = Array.isArray(action) ? action : [action];
+    message.appendChild(document.createElement("br"));
+    actions.forEach((item) => {
+      const actionLink = document.createElement("a");
+      actionLink.className = "chat-action-link";
+      actionLink.href = item.href;
+      actionLink.textContent = item.label;
+      if (item.download) {
+        actionLink.setAttribute("download", item.download);
+      }
+      message.appendChild(actionLink);
+    });
+  }
+
+  chatMessages.appendChild(message);
+  chatbox.scrollTop = chatbox.scrollHeight;
+  return message;
+}
+
+function normalizeMessage(message) {
+  return message.toLowerCase().replace(/[^\w\s@.+-]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function isPortfolioRelated(message) {
+  return portfolioTopics.some((topic) => message.includes(topic));
+}
+
+function buildPortfolioMailto(topic) {
+  const subject = "Portfolio inquiry / meeting request";
+  const body = `Hello Ransh,\n\nI visited your portfolio and want to discuss:\n${topic}\n\nMy name:\nCompany/role:\nPreferred date and time:\nReply email:\n\nThanks.`;
+
+  return `mailto:${portfolioOwnerEmail}?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+}
+
+function shouldStartLeadCapture(message) {
+  const leadKeywords = [
+    "hire",
+    "meeting",
+    "schedule",
+    "company",
+    "client",
+    "proposal",
+    "budget",
+    "work with",
+    "collaborate",
+    "contact me",
+    "email me",
+  ];
+
+  return leadKeywords.some((keyword) => message.includes(keyword));
+}
+
+function startLeadCapture() {
+  leadCaptureState = {
+    active: true,
+    step: 0,
+    data: {},
+  };
+  appendChatMessage("bot", leadCaptureFields[0].prompt);
+}
+
+function getNextBusinessDate() {
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  date.setHours(10, 0, 0, 0);
+
+  if (date.getDay() === 0) date.setDate(date.getDate() + 1);
+  if (date.getDay() === 6) date.setDate(date.getDate() + 2);
+
+  return date;
+}
+
+function parsePreferredDateTime(value) {
+  const parsed = new Date(value);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed;
+  }
+
+  return getNextBusinessDate();
+}
+
+function formatIcsDate(date) {
+  return date
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
+}
+
+function buildLeadMailto(data) {
+  const subject = `Portfolio lead from ${data.company || data.name}`;
+  const body = [
+    "Hello Ransh,",
+    "",
+    "A visitor submitted these details from your portfolio chat:",
+    "",
+    `Name: ${data.name}`,
+    `Company / role: ${data.company}`,
+    `Company email: ${data.email}`,
+    `Topic: ${data.topic}`,
+    `Preferred time: ${data.time}`,
+    `Budget / urgency: ${data.budget}`,
+    "",
+    "Please reply to the visitor and confirm availability.",
+  ].join("\n");
+
+  return `mailto:${portfolioOwnerEmail}?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`;
+}
+
+function buildCalendarInvite(data) {
+  const start = parsePreferredDateTime(data.time);
+  const end = new Date(start.getTime() + 30 * 60 * 1000);
+  const title = `Portfolio discussion with ${data.company || data.name}`;
+  const description = [
+    `Visitor: ${data.name}`,
+    `Company/role: ${data.company}`,
+    `Email: ${data.email}`,
+    `Topic: ${data.topic}`,
+    `Budget/urgency: ${data.budget}`,
+  ].join("\\n");
+
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Ransh Portfolio//Lead Scheduler//EN",
+    "BEGIN:VEVENT",
+    `UID:${Date.now()}@ransh-portfolio`,
+    `DTSTAMP:${formatIcsDate(new Date())}`,
+    `DTSTART:${formatIcsDate(start)}`,
+    `DTEND:${formatIcsDate(end)}`,
+    `SUMMARY:${title}`,
+    `DESCRIPTION:${description}`,
+    `ATTENDEE;CN=${data.name}:mailto:${data.email}`,
+    `ORGANIZER;CN=Ransh Chettri:mailto:${portfolioOwnerEmail}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+}
+
+function summarizeLead(data) {
+  return [
+    "Lead captured.",
+    `Name: ${data.name}`,
+    `Company/role: ${data.company}`,
+    `Email: ${data.email}`,
+    `Topic: ${data.topic}`,
+    `Preferred time: ${data.time}`,
+    `Budget/urgency: ${data.budget}`,
+    "Use the buttons below to send the details to Ransh and save a calendar hold.",
+  ].join("\n");
+}
+
+function handleLeadCaptureResponse(rawMessage) {
+  const field = leadCaptureFields[leadCaptureState.step];
+  const value = rawMessage.trim();
+
+  if (!value) {
+    appendChatMessage("bot", field.prompt);
+    return;
+  }
+
+  if (field.validate && !field.validate(value)) {
+    appendChatMessage("bot", field.error);
+    return;
+  }
+
+  leadCaptureState.data[field.key] = value;
+  leadCaptureState.step += 1;
+
+  const nextField = leadCaptureFields[leadCaptureState.step];
+  if (nextField) {
+    appendChatMessage("bot", nextField.prompt);
+    return;
+  }
+
+  const data = { ...leadCaptureState.data };
+  leadCaptureState = {
+    active: false,
+    step: 0,
+    data: {},
+  };
+
+  appendChatMessage("bot", summarizeLead(data), [
+    {
+      label: "Send email draft",
+      href: buildLeadMailto(data),
+    },
+    {
+      label: "Download calendar hold",
+      href: buildCalendarInvite(data),
+      download: "ransh-portfolio-meeting.ics",
+    },
+  ]);
+}
+
+async function askConfiguredAIEndpoint(message) {
+  if (!window.PORTFOLIO_AI_ENDPOINT) return null;
+
+  const response = await fetch(window.PORTFOLIO_AI_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message,
+      scope:
+        "Only answer questions about Ransh Chettri's portfolio, skills, projects, education, contact, and collaboration.",
+    }),
+  });
+
+  if (!response.ok) return null;
+  const data = await response.json().catch(() => null);
+  return data && typeof data.reply === "string" ? data.reply : null;
+}
+
+function getLocalPortfolioReply(message) {
+  if (!isPortfolioRelated(message)) {
+    return {
+      text:
+        "I can only answer about Ransh's portfolio, skills, projects, education, contact, and collaboration. Ask something related to his work or hiring.",
+    };
+  }
+
+  const wantsEmail =
+    message.includes("email") ||
+    message.includes("hire") ||
+    message.includes("meeting") ||
+    message.includes("schedule") ||
+    message.includes("collaborate") ||
+    message.includes("company");
+
+  for (let question in chatbotResponses) {
+    if (message.includes(question)) {
+      return {
+        text: chatbotResponses[question],
+        action: wantsEmail
+          ? {
+              label: "Prepare email to Ransh",
+              href: buildPortfolioMailto(message),
+            }
+          : null,
+      };
+    }
+  }
+
+  if (wantsEmail) {
+    return {
+      text:
+        "I can help you contact Ransh. Use this email draft and add your company, project details, timeline, and preferred meeting time.",
+      action: {
+        label: "Prepare email to Ransh",
+        href: buildPortfolioMailto(message),
+      },
+    };
+  }
+
+  if (message.includes("online voting") || message.includes("voting")) {
+    return {
+      text:
+        "Online Voting System is a MERN project with role-based access, JWT auth, OTP vote verification, one-vote-per-user logic, and real-time result calculation.",
+    };
+  }
+
+  if (message.includes("mobile")) {
+    return {
+      text:
+        "Mobile Shop Website uses React, Django, MySQL, Khalti payment, cart/order flow, product listing, city-wise COD/advance logic, and seller-buyer chat.",
+    };
+  }
+
+  if (message.includes("employee")) {
+    return {
+      text:
+        "Employee Management System handles employee records, roles, attendance, leave requests, notifications, search/filter, and CRUD workflows.",
+    };
+  }
+
+  return {
+    text:
+      "Ransh is a BCA student and software/AI-ML-focused developer. Ask about his skills, projects, resume, certifications, or how to contact/hire him.",
+  };
+}
+
 // Send message to chatbot
-function sendChatMessage(event) {
+async function sendChatMessage(event) {
   if (event) event.preventDefault();
   if (!chatInput || !chatMessages) return;
 
-  const message = chatInput.value.trim().toLowerCase();
+  const rawMessage = chatInput.value.trim();
+  const message = normalizeMessage(rawMessage);
 
   if (message) {
-    const userMessage = document.createElement("div");
-    userMessage.classList.add("chat-message", "user");
-    userMessage.textContent = message;
-    chatMessages.appendChild(userMessage);
-
-    const botMessage = document.createElement("div");
-    botMessage.classList.add("chat-message", "bot");
-    let response =
-      "I'm here to help! Try asking about my skills, projects, education, or how to collaborate.";
-    for (let question in chatbotResponses) {
-      if (message.includes(question)) {
-        response = chatbotResponses[question];
-        break;
-      }
-    }
-    botMessage.textContent = response;
-    chatMessages.appendChild(botMessage);
-
+    appendChatMessage("user", rawMessage);
     chatInput.value = "";
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    if (leadCaptureState.active) {
+      handleLeadCaptureResponse(rawMessage);
+      return;
+    }
+
+    if (isPortfolioRelated(message) && shouldStartLeadCapture(message)) {
+      startLeadCapture();
+      return;
+    }
+
+    try {
+      const aiReply = isPortfolioRelated(message)
+        ? await askConfiguredAIEndpoint(rawMessage)
+        : null;
+      if (aiReply) {
+        appendChatMessage("bot", aiReply);
+        return;
+      }
+    } catch (error) {
+      console.warn("Portfolio AI endpoint unavailable:", error);
+    }
+
+    const localReply = getLocalPortfolioReply(message);
+    appendChatMessage("bot", localReply.text, localReply.action);
   }
 }
 
@@ -369,6 +752,17 @@ function getPreviousPageName() {
   return autoPageSequence[currentIndex - 1];
 }
 
+function getPageTitle(pageName) {
+  const pageTitles = {
+    "index.html": "Home",
+    "resume.html": "Resume",
+    "skills.html": "Skills",
+    "contact.html": "Contact",
+  };
+
+  return pageTitles[pageName] || pageName.replace(".html", "");
+}
+
 function isNearTop() {
   return window.scrollY <= 4;
 }
@@ -520,6 +914,7 @@ window.addEventListener(
     if (shouldIgnoreAutoPageTarget(event.target)) return;
 
     const swipeDistance = touchStartY - event.touches[0].clientY;
+
     if (swipeDistance > 54 && isNearBottom()) {
       resetEdgeScrollState();
       triggerPageTransition("forward");
@@ -533,7 +928,7 @@ window.addEventListener(
       touchStartY = null;
     }
   },
-  { passive: true }
+  { passive: false }
 );
 
 window.addEventListener(

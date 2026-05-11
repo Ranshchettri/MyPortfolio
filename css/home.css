@@ -138,7 +138,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  cursor: default;
+  cursor: pointer;
   transition: transform 0.18s ease, color 0.18s ease;
 }
 
@@ -354,7 +354,7 @@ body {
 
 .project-row {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr) auto;
+  grid-template-columns: 154px minmax(0, 1fr) auto;
   gap: 1.2rem;
   align-items: center;
   border-radius: 18px;
@@ -372,8 +372,8 @@ body {
 }
 
 .project-thumb {
-  width: 112px;
-  min-height: 128px;
+  width: 154px;
+  min-height: 112px;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
@@ -384,10 +384,10 @@ body {
 }
 
 .project-poster {
-  background-color: #111;
+  background-color: #15110f;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -403,18 +403,23 @@ body {
 }
 
 .poster-ovs {
-  background-image: url("../image/project-banners/ovs-banner.png");
-  background-position: center top;
+  background-image: url("../image/project-banners/generated-ovs-banner.png");
+  background-position: center;
 }
 
 .poster-mobileverse {
-  background-image: url("../image/project-banners/mobileverse-banner.png");
-  background-position: center top;
+  background-image: url("../image/project-banners/generated-mobileverse-banner.png");
+  background-position: center;
 }
 
 .poster-portfolio {
-  background-image: url("../image/project-banners/portfolio-banner.png");
-  background-position: center top;
+  background-image: url("../image/project-banners/generated-portfolio-banner.png");
+  background-position: center;
+}
+
+.poster-employee {
+  background-image: url("../image/project-banners/generated-employee-banner.png");
+  background-position: center;
 }
 
 .project-thumb::before {
@@ -714,7 +719,7 @@ body {
   }
 
   .project-row {
-    grid-template-columns: 84px minmax(0, 1fr);
+    grid-template-columns: 108px minmax(0, 1fr);
   }
 
   .project-link-icon {
@@ -723,8 +728,8 @@ body {
   }
 
   .project-thumb {
-    width: 84px;
-    min-height: 96px;
+    width: 108px;
+    min-height: 92px;
   }
 
   .about-panel {

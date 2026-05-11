@@ -413,6 +413,7 @@ nav .social-icons a:hover {
   background-color: #f1f1f1;
   border-radius: 5px;
   font-size: 0.9rem;
+  white-space: pre-line;
 }
 
 .chat-message.bot {
@@ -433,6 +434,20 @@ nav .social-icons a:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+.chat-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.45rem;
+  margin-right: 0.35rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  background: #ff7c48;
+  color: #fff !important;
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 /* Chatbot Question Buttons: wider, two-column grid */
