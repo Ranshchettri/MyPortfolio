@@ -1,0 +1,9 @@
+# Private certificate files stay local and should not be published from this repo.
+image/certificates/*.pdf
+
+# Local-only screenshots and temporary captures.
+screenshots/
+
+# OS/editor noise.
+Thumbs.db
+.DS_Store

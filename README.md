@@ -1,316 +1,322 @@
-# Ransh Portfolio
+# 💼 Ransh Portfolio — Personal Portfolio Website
 
-This repository contains the current version of my personal portfolio website.  
-The site is built with plain HTML, CSS, and JavaScript, and it is now organized around four connected pages:
+<p>
+  <img src="https://img.shields.io/badge/📄%20FRONTEND-HTML5-555555?style=for-the-badge" alt="Frontend HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-STYLING-2f80ed?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3 Styling" />
+  <img src="https://img.shields.io/badge/JS-VANILLA%20JAVASCRIPT-f7df1e?style=for-the-badge&logo=javascript&logoColor=111111" alt="Vanilla JavaScript" />
+  <img src="https://img.shields.io/badge/ICONS-FONT%20AWESOME-538dd7?style=for-the-badge&logo=fontawesome&logoColor=white" alt="Font Awesome" />
+  <img src="https://img.shields.io/badge/CONTACT-FORMSUBMIT-00a86b?style=for-the-badge" alt="FormSubmit" />
+  <img src="https://img.shields.io/badge/DEPLOY-STATIC%20SITE-9cf000?style=for-the-badge" alt="Static Site" />
+</p>
 
-- `Home`
-- `Resume`
-- `Skills`
-- `Contact`
+A modern, responsive **Personal Portfolio Website** built with **HTML5**, **CSS3**, and **Vanilla JavaScript**. It presents Ransh Chettri as a software, SaaS, and AI-focused product developer through a polished landing page, resume, skills showcase, project highlights, contact workflow, generated project banners, and a portfolio-scoped chat assistant.
 
-## Current Website Style
+---
 
-The portfolio currently follows a bold dark/light split style:
+## 📌 Table of Contents
 
-- `Home` and `Skills` use a dark visual theme with large typography, floating navigation, and highlighted feature cards.
-- `Resume` and `Contact` use a light theme with cleaner document-style layouts.
-- The navigation stays centered across pages.
-- Top-right social icons remain visible across the site.
-- The chatbot stays available on every major page.
-- Page-to-page scrolling now feels connected, so moving between pages behaves more like one continuous experience.
+- [About the Project](#-about-the-project)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Pages](#-pages)
+- [Chat Assistant](#-chat-assistant)
+- [Screenshots](#-screenshots)
+- [Unique Highlights](#-unique-highlights)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Author](#-author)
 
-## Current Page Structure
+---
 
-### Home Page
+## 📖 About the Project
 
-The home page is now the main landing experience and includes:
+Ransh Portfolio is a personal brand website designed to show technical identity, project work, skills, resume details, and contact access in one clean static website.
 
-- A sticky profile card on the left
-- Hero heading and intro content on the right
-- Stats section
-- Two feature cards for key focus areas
-- `Recent Projects` section
-- `About Me` section
+The website is organized around four connected pages:
 
-The profile card currently includes:
+- **Home** — profile card, hero text, stats, feature cards, recent projects, and about content
+- **Resume** — career objective, education, skills, certifications, languages, and detailed projects
+- **Skills** — technical categories in a bold dark editorial layout
+- **Contact** — contact details, message form, and direct inquiry flow
 
-- Photo
-- Typing description
-- `Hire Me` button
-- Small bottom social/community icons
+The current build focuses on:
 
-### Resume Page
+- strong first impression
+- lightweight frontend performance
+- responsive layout
+- clear project presentation
+- recruiter/client-friendly navigation
+- safe static hosting compatibility
 
-The resume page currently contains:
+---
 
-- Career Objective
-- About Me
-- Education
-- Technical Skills
-- Certifications
-- Languages Known
-- Detailed project entries
+## ✨ Features
 
-The project list now includes:
+### 👤 Visitor Experience
 
-- Online Voting System (OVS)
-- Mobile Shop Management System
-- Employee Management System
-- Portfolio Website
+- Clean landing page with sticky profile card
+- Floating icon navigation across pages
+- Top-right social links
+- Smooth page-to-page scroll transition
+- Generated project banners for a professional project showcase
+- Responsive layout for desktop, tablet, and mobile
 
-### Skills Page
+### 🏠 Home Page
 
-The skills page currently uses a bold editorial layout with:
+- Profile image and typing intro
+- `Hire Me` call-to-action
+- SaaS and AI product developer positioning
+- Experience, project, and client stats
+- Feature cards for animation, AI/ML, MERN, Figma, system design, Java, Python, and WordPress
+- Recent project list
+- About Me section
+- Cinematic **Make it real** intro loader
 
-- Large stacked words on the left
-- Centered `Skills` heading on the right
-- Three skill columns
+### 📄 Resume Page
 
-Current categories:
+- Career objective
+- About Me summary
+- Education details
+- Technical skills
+- Certification names
+- Languages known
+- Project entries with tech stack and implementation details
 
-- Languages & Tools
-- Frameworks & Libraries
-- Core Workflow
+### 🧠 Skills Page
 
-### Contact Page
+- Large editorial typography
+- Skill groups for languages, frameworks, tools, and workflow
+- Dark visual theme matching the home page
 
-The contact page currently includes:
+### 📞 Contact Page
 
-- Intro heading
-- Contact information block
+- Address, phone, and email display
 - Contact form
-- Status message feedback for sending
+- FormSubmit integration for direct message sending
+- `mailto` fallback for local preview or failed direct sending
+- Status feedback for success, pending, and fallback states
 
-## Current Functional Behavior
+### 🤖 Chat Assistant
 
-### Contact Form
+- Portfolio-focused answers only
+- Quick question buttons
+- Manual user questions
+- Project, skills, education, resume, collaboration, and contact responses
+- Company/client lead capture flow
+- Email draft generation
+- Calendar hold download for meeting requests
 
-The contact form is currently connected to:
+---
 
-- `FormSubmit` for direct sending when served over HTTP/HTTPS
-- `mailto` fallback for local preview or fallback behavior
+## 🛠 Tech Stack
 
-Messages are sent to:
+| Layer | Technology |
+|---|---|
+| Frontend | HTML5 |
+| Styling | CSS3 |
+| Interactions | Vanilla JavaScript |
+| Icons | Font Awesome |
+| Fonts | Google Fonts, Montserrat, Kalam |
+| Contact | FormSubmit, mailto fallback |
+| Chat | Frontend portfolio assistant |
+| Assets | Local images, generated PNG banners |
+| Deployment | Static hosting |
 
-- `ranshchettri788@gmail.com`
+---
 
-### Chatbot
+## 📁 Project Structure
 
-The chatbot currently supports:
+```text
+portfolio/
+│
+├── index.html
+├── resume.html
+├── skills.html
+├── contact.html
+├── README.md
+│
+├── css/
+│   ├── global.css
+│   ├── home.css
+│   ├── resume.css
+│   ├── skills.css
+│   └── contact.css
+│
+├── js/
+│   └── script.js
+│
+├── image/
+│   ├── image.png
+│   └── project-banners/
+│       ├── generated-ovs-banner.png
+│       ├── generated-mobileverse-banner.png
+│       ├── generated-portfolio-banner.png
+│       └── generated-employee-banner.png
+│
+└── .gitignore
+```
 
-- Predefined quick questions
-- Manual text input
-- Auto reply responses based on portfolio-related prompts
-- Hidden scrollbar styling
-- Send button with arrow icon
+---
 
-### Page Transition Flow
+## 🚀 Getting Started
 
-The website now includes connected page transitions:
+### Prerequisites
 
-- Scrolling down at the end of a page moves to the next page
-- Scrolling up at the top of a page moves to the previous page
-- Forward and reverse transitions both use motion-based page changes
+Make sure you have:
 
-Current page order:
+- Git
+- A modern browser
+- Optional: VS Code
+- Optional: Python for local server preview
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Ranshchettri/MyPortfolio.git
+cd MyPortfolio
+```
+
+### Run Directly
+
+Open:
+
+```text
+index.html
+```
+
+### Run With Local Server
+
+```bash
+python -m http.server 4173
+```
+
+Then visit:
+
+```text
+http://localhost:4173/index.html
+```
+
+---
+
+## 🧭 Pages
+
+| Page | File | Description |
+|---|---|---|
+| Home | `index.html` | Main landing page, profile, recent projects, about section |
+| Resume | `resume.html` | Career, education, technical skills, certifications, project details |
+| Skills | `skills.html` | Skill categories and technical focus areas |
+| Contact | `contact.html` | Message form and contact information |
+
+---
+
+## 🤖 Chat Assistant
+
+The chatbot is designed as a portfolio assistant, not a general-purpose public AI.
+
+It can answer questions about:
+
+- Ransh Chettri
+- skills
+- education
+- projects
+- certifications
+- contact details
+- hiring
+- collaboration
+- meeting scheduling
+
+For company or client inquiries, it collects:
+
+- name
+- company or role
+- company email
+- project or meeting topic
+- preferred meeting time
+- budget or urgency
+
+After collecting details, it can create:
+
+- an email draft for Ransh
+- a downloadable calendar hold (`.ics`)
+
+---
+
+## 📸 Screenshots
+
+| Page | Screenshot |
+|---|---|
+| Home / Landing | `screenshots/home.png` |
+| Resume | `screenshots/resume.png` |
+| Skills | `screenshots/skills.png` |
+| Contact | `screenshots/contact.png` |
+| Chat Assistant | `screenshots/chatbot.png` |
+
+---
+
+## 🌟 Unique Highlights
+
+### 🎬 Make It Real Intro
+
+The home page starts with a cinematic **Make it real** loader. The title enters from the right, the loading indicator sits lower on the screen, and the portfolio opens after a short premium loading moment.
+
+### 🧩 Connected Page Flow
+
+The website supports edge-scroll page movement:
 
 1. `index.html`
 2. `resume.html`
 3. `skills.html`
 4. `contact.html`
 
-## Certifications Status
+### 🖼 Generated Project Banners
 
-Certificate files are stored inside the project, but inline certificate preview is currently turned off.
+Recent projects use custom generated banners:
 
-Available certificate assets:
+- Online Voting System
+- MobileVerse
+- Portfolio Website
+- Employee Management System
 
-- `image/certificates/java-certificate.pdf`
-- `image/certificates/oci-architect-certificate.pdf`
-- `image/certificates/oci-gen-ai-certificate.pdf`
-- `image/certificates/ui-ux-certificate.pdf`
+### 📬 Smart Inquiry Flow
 
-Currently listed in the Resume page:
+The chat assistant captures project inquiry details and prepares an email draft plus meeting calendar hold.
 
-- OCI-Gen_AI-Certificate - Online Course
-- OCI-Architect - Online Course
-- JAVA - Online Course
-- React Development - Physical Course
-- UI/UX - Physical Course
+### ⚡ Lightweight Static Build
 
-## Updated / Merged / Removed
-
-The current website structure is different from the older version.
-
-### Merged into Home
-
-These sections are no longer standalone pages because their content now lives inside the Home page:
-
-- Projects
-- About Me
-
-### Removed Files
-
-The following old standalone files are no longer part of the current live structure:
-
-- `about.html`
-- `projects.html`
-- `css/about.css`
-- `css/projects.css`
-- `js/about-ball.js`
-
-### Updated Behavior
-
-Compared to the older structure, the current site now includes:
-
-- Connected multi-page scroll transitions
-- Updated home hero and card layout
-- Recent Projects shown directly on Home
-- About content shown directly on Home
-- OVS project added to Resume and Home
-- Centered navbar behavior across screen sizes
-- Larger top-right social media icons
-- Contact form direct-send flow
-- Resume certificate list in static mode
-
-## Tech Stack
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Font Awesome
-- FormSubmit
-
-## Current Project Structure
-
-```text
-index.html
-resume.html
-skills.html
-contact.html
-README.md
-
-css/
-  global.css
-  home.css
-  resume.css
-  skills.css
-  contact.css
-
-js/
-  script.js
-
-image/
-  image.png
-  certificates/
-    java-certificate.pdf
-    oci-architect-certificate.pdf
-    oci-gen-ai-certificate.pdf
-    ui-ux-certificate.pdf
-```
-
-## Notes
-
-- The documentation in this README reflects the current website structure, not the older multi-page About/Projects version.
-- If more sections are merged or redesigned later, this file should be updated alongside the code.
-
-## Contact
-
-Portfolio owner:
-
-- Ransh Chettri
-
-Links:
-
-- GitHub: https://github.com/Ranshchettri
-- LinkedIn: https://www.linkedin.com/in/ransh-chettri-852386315
-- Instagram: https://www.instagram.com/ransh_xettri777/
+The project uses no React, Tailwind, Bootstrap, database, or backend server. It stays simple, fast, and easy to host.
 
 ---
 
-######     Old Portfolio Documentation  #########################################
+## 🤝 Contributing
 
-The section below preserves the older project documentation style for reference.
+Contributions are welcome.
 
-### Old Overview
-
-Welcome to my personal portfolio website. This project showcases my skills,
-projects, and experience as a passionate software developer and aspiring
-AI/ML specialist.
-
-This portfolio was designed as a modern, responsive, and interactive website
-to highlight my journey, technical expertise, and completed projects. It
-focuses on clean UI, smooth animations, and a user-friendly experience across
-devices.
-
-### Old Features
-
-- Home Page
-  Eye-catching hero section with animated typing effect, profile card, quick
-  stats, and highlighted skill cards.
-- About Page
-  Personal introduction with a separate About section/page design.
-- Resume Page
-  Timeline-style layout for education, skills, certifications, and project
-  highlights.
-- Skills Page
-  Categorized skill groups with a modern responsive layout.
-- Projects Page
-  Dedicated project card layout with links and descriptions.
-- Contact Page
-  Direct contact form, social links, and personal contact details.
-- Chatbot
-  Floating chatbot with predefined questions and portfolio-related responses.
-- Consistent UI/UX
-  Fixed navigation, social icons, responsive layout, transitions, gradients,
-  and interactive elements.
-
-### Old Tech Stack
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Font Awesome
-- EmailJS / direct email integration readiness
-- Responsive Design with media queries
-
-### Old UI Highlights
-
-- Glassmorphism-inspired effects on cards and panels
-- Animated backgrounds and interactive elements
-- Floating brand and social icons for quick access
-- Clean readable typography with strong contrast
-- Hover effects and subtle transitions
-
-### Old Project Structure
-
-```text
-index.html
-about.html
-resume.html
-skills.html
-projects.html
-contact.html
-
-css/
-  global.css
-  home.css
-  about.css
-  resume.css
-  skills.css
-  projects.css
-  contact.css
-
-js/
-  script.js
-  about-ball.js
-
-image/
-  image.png
-  image2.png
+```bash
+git checkout -b feature/your-feature-name
+git commit -m "Add your feature"
+git push origin feature/your-feature-name
 ```
 
-### Old Contact Note
+Then open a Pull Request with a clear summary.
 
-Feel free to reach out via the contact form or connect through GitHub,
-LinkedIn, or Instagram.
+---
+
+## 📄 License
+
+This is a personal portfolio project. Add a license file if you want to make reuse terms explicit.
+
+---
+
+## 👨‍💻 Author
+
+**Ransh Chettri**
+
+- GitHub: [Ranshchettri](https://github.com/Ranshchettri)
+- LinkedIn: [ransh-chettri-852386315](https://www.linkedin.com/in/ransh-chettri-852386315)
+- Instagram: [ransh_xettri777](https://www.instagram.com/ransh_xettri777/)
+- Reddit: [Intelligent-Layer667](https://www.reddit.com/user/Intelligent-Layer667/)
+- daily.dev: [ranshchettri](https://app.daily.dev/ranshchettri)
+
+⭐ If this portfolio helps or inspires you, consider starring the repository.

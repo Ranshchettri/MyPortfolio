@@ -124,6 +124,108 @@ body.page-enter-active #chatbox {
   transform: translateY(0);
 }
 
+.portfolio-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  background: #030303;
+  color: #e9f3ee;
+  overflow: hidden;
+  transition: opacity 0.86s ease, visibility 0.86s ease;
+}
+
+.portfolio-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.portfolio-loader-title {
+  font-family: "Kalam", "Segoe Print", "Comic Sans MS", cursive;
+  font-size: clamp(4.4rem, 12.6vw, 10.6rem);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  color: rgba(226, 239, 235, 0.9);
+  text-shadow: 0 16px 44px rgba(0, 0, 0, 0.44);
+  transform: translate(46vw, -6vh) skewX(-3deg);
+  opacity: 0;
+  animation: portfolioLoaderTitleIn 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.portfolio-loader-status {
+  position: absolute;
+  left: 50%;
+  top: 79%;
+  width: min(260px, 48vw);
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.72rem;
+  opacity: 0;
+  animation: portfolioLoaderStatusIn 0.55s ease 1.05s forwards;
+}
+
+.portfolio-loader-line {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.portfolio-loader-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: #edf6f2;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: portfolioLoaderLine 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.portfolio-loader-status span {
+  color: rgba(232, 244, 239, 0.86);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+body.portfolio-loading {
+  overflow: hidden;
+}
+
+@keyframes portfolioLoaderTitleIn {
+  0% {
+    opacity: 0;
+    transform: translate(46vw, -6vh) skewX(-3deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, -6vh) skewX(-3deg);
+  }
+}
+
+@keyframes portfolioLoaderStatusIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes portfolioLoaderLine {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 a {
   text-decoration: none;
   color: inherit;

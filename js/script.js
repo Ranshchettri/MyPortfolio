@@ -17,6 +17,28 @@ const chatInput = document.getElementById("chat-input");
 const chatMessages = document.getElementById("chat-messages");
 const contactForm = document.getElementById("contact-form");
 const contactStatus = document.getElementById("contact-status");
+const portfolioLoader = document.querySelector(".portfolio-loader");
+
+if (portfolioLoader) {
+  document.body.classList.add("portfolio-loading");
+
+  const startedAt = performance.now();
+  const minimumLoaderTime = 3500;
+
+  window.addEventListener(
+    "load",
+    function () {
+      const elapsed = performance.now() - startedAt;
+      const remaining = Math.max(0, minimumLoaderTime - elapsed);
+
+      window.setTimeout(() => {
+        portfolioLoader.classList.add("is-hidden");
+        document.body.classList.remove("portfolio-loading");
+      }, remaining);
+    },
+    { once: true }
+  );
+}
 
 if (chatbot && chatbox) {
   chatbot.addEventListener("click", function () {
