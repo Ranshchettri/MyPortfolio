@@ -42,7 +42,7 @@ body {
 .custom-profile-card {
   width: 100%;
   max-width: 290px;
-  min-height: 462px;
+  height: 462px;
   background: linear-gradient(145deg, #e8e7e5 0%, #d5d4d3 100%);
   border-radius: 10px;
   padding: 1.25rem 0.85rem 5.7rem;
@@ -88,12 +88,23 @@ body {
   line-height: 1.62;
   color: #4f4940;
   max-width: 195px;
-  min-height: 2rem;
+  height: 3.65rem;
   margin: 0 auto 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .typing-cursor {
-  color: #4f4940;
+  color: #fff;
+  font-weight: 700;
+  animation: typingCursorBlink 0.82s steps(1) infinite;
+}
+
+#typing-desc {
+  display: inline-block;
+  min-width: 0;
 }
 
 .hire-btn {
@@ -667,6 +678,18 @@ body {
   }
 }
 
+@keyframes typingCursorBlink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 900px) {
   .home-page {
     width: min(100%, calc(100% - 1.4rem));
@@ -685,7 +708,7 @@ body {
   }
 
   .custom-profile-card {
-    min-height: auto;
+    height: 462px;
     padding-bottom: 2rem;
   }
 

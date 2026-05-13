@@ -556,11 +556,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let displayText = currentText.substring(0, charIndex);
 
     typingSpan.textContent = displayText;
-    typingSpan.style.borderRight = "2px solid #fff";
 
     if (!isDeleting && charIndex < currentText.length) {
       charIndex++;
-      setTimeout(typeHero, 70);
+      setTimeout(typeHero, 78);
     } else if (!isDeleting && charIndex === currentText.length) {
       setTimeout(() => {
         isDeleting = true;
@@ -568,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 900);
     } else if (isDeleting && charIndex > 0) {
       charIndex--;
-      setTimeout(typeHero, 50);
+      setTimeout(typeHero, 46);
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       textIndex = (textIndex + 1) % texts.length;
