@@ -305,7 +305,7 @@ Then open a Pull Request with a clear summary.
 
 ## 📄 License
 
-This is a personal portfolio project. Add a license file if you want to make reuse terms explicit.
+This is a personal portfolio project. 
 
 ---
 
