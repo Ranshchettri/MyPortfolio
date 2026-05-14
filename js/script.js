@@ -20,14 +20,23 @@ const contactStatus = document.getElementById("contact-status");
 const portfolioLoader = document.querySelector(".portfolio-loader");
 
 if (portfolioLoader) {
-  document.body.classList.add("portfolio-loading");
+  const loaderSeenStorageKey = "portfolio-loader-seen";
+  const pageTransitionStorageKey = "portfolio-page-transition";
+  const navigationEntry = performance.getEntriesByType("navigation")[0];
+  const isReload = navigationEntry && navigationEntry.type === "reload";
+  const hasSeenLoader =
+    sessionStorage.getItem(loaderSeenStorageKey) === "true";
+  const hasPageTransition =
+    sessionStorage.getItem(pageTransitionStorageKey) !== null;
+  const shouldShowLoader = isReload || (!hasSeenLoader && !hasPageTransition);
 
-  const startedAt = performance.now();
-  const minimumLoaderTime = 3500;
+  if (shouldShowLoader) {
+    document.body.classList.add("portfolio-loading");
+    sessionStorage.setItem(loaderSeenStorageKey, "true");
 
-  window.addEventListener(
-    "load",
-    function () {
+    const startedAt = performance.now();
+    const minimumLoaderTime = 3500;
+    const hidePortfolioLoader = () => {
       const elapsed = performance.now() - startedAt;
       const remaining = Math.max(0, minimumLoaderTime - elapsed);
 
@@ -35,9 +44,16 @@ if (portfolioLoader) {
         portfolioLoader.classList.add("is-hidden");
         document.body.classList.remove("portfolio-loading");
       }, remaining);
-    },
-    { once: true }
-  );
+    };
+
+    if (document.readyState === "complete") {
+      hidePortfolioLoader();
+    } else {
+      window.addEventListener("load", hidePortfolioLoader, { once: true });
+    }
+  } else {
+    portfolioLoader.remove();
+  }
 }
 
 if (chatbot && chatbox) {

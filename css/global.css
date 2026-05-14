@@ -304,6 +304,19 @@ ul {
   pointer-events: auto;
 }
 
+.brand-floating-mark {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
+}
+
+.brand-floating span {
+  line-height: 1;
+}
+
 /* Hide any .brand that lives inside <nav> (avoids duplicate logo) */
 nav .brand {
   display: none;
