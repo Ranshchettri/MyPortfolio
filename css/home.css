@@ -626,6 +626,12 @@ body {
   letter-spacing: 0.01em;
 }
 
+.home-credit-strip p:last-child {
+  font-size: 0.8rem;
+  color: #a8a29e;
+  margin-top: 0.5rem;
+}
+
 .home-credit-strip span {
   color: #ff7c48;
 }
