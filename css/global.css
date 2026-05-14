@@ -146,6 +146,29 @@ body.page-enter-active #chatbox {
   pointer-events: none;
 }
 
+.portfolio-loader-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.85rem, 2.2vw, 1.6rem);
+  max-width: min(94vw, 1180px);
+  transform: translate(46vw, -6vh) skewX(-3deg);
+  opacity: 0;
+  animation: portfolioLoaderTitleIn 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.portfolio-loader-logo {
+  width: clamp(3.3rem, 8.8vw, 7.5rem);
+  height: clamp(3.3rem, 8.8vw, 7.5rem);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  flex: 0 0 auto;
+  box-shadow: 0 18px 54px rgba(255, 103, 18, 0.2);
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.42));
+  transform: skewX(3deg);
+}
+
 .portfolio-loader-title {
   font-family: "Kalam", "Segoe Print", "Comic Sans MS", cursive;
   font-size: clamp(4.4rem, 12.6vw, 10.6rem);
@@ -154,9 +177,7 @@ body.page-enter-active #chatbox {
   letter-spacing: -0.045em;
   color: rgba(226, 239, 235, 0.9);
   text-shadow: 0 16px 44px rgba(0, 0, 0, 0.44);
-  transform: translate(46vw, -6vh) skewX(-3deg);
-  opacity: 0;
-  animation: portfolioLoaderTitleIn 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  white-space: nowrap;
 }
 
 .portfolio-loader-status {
@@ -235,13 +256,15 @@ body.portfolio-loading {
     place-items: center;
   }
 
-  .portfolio-loader-title {
+  .portfolio-loader-brand {
     max-width: 100%;
+    transform: translate(52vw, -8vh) skewX(-3deg);
+  }
+
+  .portfolio-loader-title {
     font-size: clamp(3.45rem, 18vw, 6.9rem);
     line-height: 0.88;
     text-align: center;
-    white-space: nowrap;
-    transform: translate(52vw, -8vh) skewX(-3deg);
   }
 
   .portfolio-loader-status {
@@ -265,6 +288,11 @@ body.portfolio-loading {
 @media (max-width: 420px) {
   .portfolio-loader-title {
     font-size: clamp(3rem, 17vw, 4.7rem);
+  }
+
+  .portfolio-loader-logo {
+    width: clamp(2.55rem, 14vw, 3.65rem);
+    height: clamp(2.55rem, 14vw, 3.65rem);
   }
 
   .portfolio-loader-status {
@@ -305,10 +333,15 @@ ul {
 }
 
 .brand-floating-mark {
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center center;
+  display: block;
+  clip-path: circle(50% at 50% 50%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 58%, transparent 59%);
+  mask-image: radial-gradient(circle at center, #000 58%, transparent 59%);
   flex: 0 0 auto;
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
 }
