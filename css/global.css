@@ -124,13 +124,35 @@ body.page-enter-active #chatbox {
   transform: translateY(0);
 }
 
+/* Accessibility: Focus styles */
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: 2px solid #ff7c48;
+  outline-offset: 2px;
+}
+
+img:focus {
+  outline: 2px solid #ff7c48;
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .portfolio-loader {
   position: fixed;
   inset: 0;
   z-index: 3000;
   display: grid;
   place-items: center;
-  background: #030303;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 124, 72, 0.2), transparent 32%),
+    radial-gradient(circle at 82% 74%, rgba(0, 196, 180, 0.16), transparent 35%),
+    #030303;
   color: #e9f3ee;
   overflow: hidden;
   transition: opacity 0.86s ease, visibility 0.86s ease;
@@ -140,6 +162,40 @@ body.page-enter-active #chatbox {
     max(1.25rem, env(safe-area-inset-left));
 }
 
+.portfolio-loader::before,
+.portfolio-loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.portfolio-loader::before {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 74%);
+  opacity: 0.34;
+}
+
+.portfolio-loader::after {
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 48%, transparent 0 32%, rgba(3, 3, 3, 0.18) 58%, rgba(3, 3, 3, 0.72) 100%),
+    linear-gradient(180deg, rgba(3, 3, 3, 0.22), rgba(3, 3, 3, 0.68));
+}
+
+.portfolio-loader-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .portfolio-loader.is-hidden {
   opacity: 0;
   visibility: hidden;
@@ -147,6 +203,8 @@ body.page-enter-active #chatbox {
 }
 
 .portfolio-loader-brand {
+  position: relative;
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +222,8 @@ body.page-enter-active #chatbox {
   object-fit: cover;
   object-position: center;
   flex: 0 0 auto;
-  box-shadow: 0 18px 54px rgba(255, 103, 18, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 54px rgba(255, 103, 18, 0.22);
   filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.42));
   transform: skewX(3deg);
 }
@@ -174,14 +233,17 @@ body.page-enter-active #chatbox {
   font-size: clamp(4.4rem, 12.6vw, 10.6rem);
   font-weight: 700;
   line-height: 0.86;
-  letter-spacing: -0.045em;
+  letter-spacing: 0;
   color: rgba(226, 239, 235, 0.9);
-  text-shadow: 0 16px 44px rgba(0, 0, 0, 0.44);
+  text-shadow:
+    0 0 28px rgba(0, 196, 180, 0.24),
+    0 16px 44px rgba(0, 0, 0, 0.44);
   white-space: nowrap;
 }
 
 .portfolio-loader-status {
   position: absolute;
+  z-index: 3;
   left: 50%;
   top: 79%;
   width: min(260px, 48vw);
@@ -198,7 +260,9 @@ body.page-enter-active #chatbox {
   width: 100%;
   height: 3px;
   overflow: hidden;
-  background: rgb(0, 0, 0);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 0 26px rgba(0, 196, 180, 0.18);
 }
 
 .portfolio-loader-line::after {
@@ -206,10 +270,10 @@ body.page-enter-active #chatbox {
   position: absolute;
   inset: 0;
   width: 100%;
-  background: #edf6f2;
+  background: linear-gradient(90deg, #00c4b4, #edf6f2, #ff7c48);
   transform: scaleX(0);
   transform-origin: left center;
-  animation: portfolioLoaderLine 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.24s ease;
 }
 
 .portfolio-loader-status span {
@@ -217,6 +281,33 @@ body.page-enter-active #chatbox {
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+
+.portfolio-loader-percent {
+  font: inherit;
+  color: #fff;
+}
+
+#custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(237, 246, 242, 0.9);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0);
+  box-shadow:
+    0 0 18px rgba(0, 196, 180, 0.45),
+    inset 0 0 10px rgba(255, 255, 255, 0.16);
+  transition: opacity 0.18s ease;
+}
+
+body.portfolio-loading #custom-cursor {
+  opacity: 1;
 }
 
 body.portfolio-loading {
@@ -238,16 +329,6 @@ body.portfolio-loading {
 @keyframes portfolioLoaderStatusIn {
   to {
     opacity: 1;
-  }
-}
-
-@keyframes portfolioLoaderLine {
-  0% {
-    transform: scaleX(0);
-  }
-
-  100% {
-    transform: scaleX(1);
   }
 }
 
@@ -282,6 +363,12 @@ body.portfolio-loading {
       opacity: 1;
       transform: translate(0, -8vh) skewX(-3deg);
     }
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #custom-cursor {
+    display: none;
   }
 }
 

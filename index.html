@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Ransh Portfolio</title>
+    <meta name="description" content="Portfolio of Ransh Chettri, a skilled developer specializing in SaaS, AI/ML, MERN stack, and more. Explore projects, skills, and contact information." />
+    <meta name="keywords" content="Ransh Chettri, portfolio, developer, SaaS, AI/ML, MERN, React, Node.js, Python, Java, WordPress" />
+    <meta name="author" content="Ransh Chettri" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ranshchettri.github.io/MyPortfolio/" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,9 +19,26 @@
       href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Montserrat:wght@700;900&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ransh Chettri",
+      "jobTitle": "Developer",
+      "url": "https://ranshchettri.github.io/MyPortfolio/",
+      "sameAs": [
+        "https://github.com/Ranshchettri",
+        "https://www.linkedin.com/in/ransh-chettri-852386315",
+        "https://www.instagram.com/ransh_xettri777/"
+      ],
+      "knowsAbout": ["SaaS", "AI/ML", "MERN Stack", "Python", "Java", "WordPress"]
+    }
+    </script>
   </head>
   <body class="page-dark">
     <div class="portfolio-loader" aria-label="Portfolio loading screen">
+      <canvas class="portfolio-loader-canvas" aria-hidden="true"></canvas>
+      <div id="custom-cursor" aria-hidden="true"></div>
       <div class="portfolio-loader-brand">
         <img
           class="portfolio-loader-logo"
@@ -28,7 +50,7 @@
       </div>
       <div class="portfolio-loader-status">
         <div class="portfolio-loader-line" aria-hidden="true"></div>
-        <span>Loading</span>
+        <span>Loading <strong class="portfolio-loader-percent">0%</strong></span>
       </div>
     </div>
 
@@ -106,8 +128,9 @@
               <div class="custom-profile-image">
                 <img
                   src="image/image.png"
-                  alt="Ransh chettri"
+                  alt="Ransh Chettri - Profile Photo"
                   class="profile-photo"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -350,6 +373,7 @@
               </div>
             </div>
           </section>
+
         </section>
       </section>
 
