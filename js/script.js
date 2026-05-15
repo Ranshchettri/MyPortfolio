@@ -19,6 +19,201 @@ const contactForm = document.getElementById("contact-form");
 const contactStatus = document.getElementById("contact-status");
 const portfolioLoader = document.querySelector(".portfolio-loader");
 
+function initPortfolioLoaderShader(loader) {
+  const canvas = loader.querySelector(".portfolio-loader-canvas");
+  const cursor = loader.querySelector("#custom-cursor");
+  const progressBar = loader.querySelector(".portfolio-loader-line");
+  const progressText = loader.querySelector(".portfolio-loader-percent");
+  if (!canvas) return () => {};
+
+  const gl = canvas.getContext("webgl", {
+    alpha: false,
+    antialias: false,
+    powerPreference: "high-performance",
+  });
+
+  let progress = 0;
+  const progressTimer = window.setInterval(() => {
+    progress = Math.min(progress + Math.random() * 11 + 4, 94);
+    if (progressBar) progressBar.style.setProperty("--portfolio-loader-progress", String(progress / 100));
+    if (progressText) progressText.textContent = `${Math.floor(progress)}%`;
+    loader.style.setProperty("--portfolio-loader-progress", String(progress / 100));
+  }, 55);
+
+  const completeProgress = () => {
+    window.clearInterval(progressTimer);
+    loader.style.setProperty("--portfolio-loader-progress", "1");
+    if (progressBar) progressBar.style.setProperty("--portfolio-loader-progress", "1");
+    if (progressText) progressText.textContent = "100%";
+  };
+
+  if (!gl) {
+    return completeProgress;
+  }
+
+  const vertexShaderSource = `
+    attribute vec2 position;
+    void main() {
+      gl_Position = vec4(position, 0.0, 1.0);
+    }
+  `;
+
+  const fragmentShaderSource = `
+    precision highp float;
+    uniform float time;
+    uniform vec2 res;
+    uniform vec2 uMouse;
+
+    float lineField(vec2 uv, float speed, float scale, float width) {
+      float wave = sin((uv.x * scale) + time * speed + sin(uv.y * 5.0 + time * 0.7));
+      float line = abs(uv.y + wave * 0.08);
+      return smoothstep(width, 0.0, line);
+    }
+
+    void main() {
+      vec2 uv = (gl_FragCoord.xy - 0.5 * res.xy) / min(res.x, res.y);
+      vec2 mouse = (uMouse - 0.5) * vec2(res.x / min(res.x, res.y), res.y / min(res.x, res.y));
+      float distanceToMouse = length(uv - mouse);
+      float pull = smoothstep(0.82, 0.0, distanceToMouse);
+
+      uv += normalize(mouse - uv + 0.0001) * pull * 0.11;
+      uv.x += sin(uv.y * 9.0 + time * 0.28) * 0.035;
+      uv.y += cos(uv.x * 7.0 - time * 0.22) * 0.028;
+
+      float grid = 0.0;
+      grid += lineField(uv + vec2(0.0, 0.18), 0.7, 11.0, 0.018 + pull * 0.03);
+      grid += lineField(uv * vec2(0.9, 1.25) - vec2(0.0, 0.2), -0.55, 14.0, 0.012 + pull * 0.02);
+      grid += lineField(uv.yx + vec2(0.06, -0.08), 0.42, 9.5, 0.01);
+
+      float glow = exp(-distanceToMouse * 4.2) * 0.65;
+      float vignette = smoothstep(1.35, 0.18, length(uv));
+
+      vec3 base = vec3(0.011, 0.012, 0.013);
+      vec3 teal = vec3(0.0, 0.76, 0.70);
+      vec3 ember = vec3(1.0, 0.34, 0.14);
+      vec3 pearl = vec3(0.92, 0.97, 0.94);
+      vec3 color = base;
+      color += teal * grid * 0.46;
+      color += ember * grid * 0.18;
+      color += pearl * pow(grid, 2.2) * 0.7;
+      color += mix(teal, ember, 0.42 + uv.x * 0.2) * glow;
+      color *= vignette;
+
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  const createShader = (type, source) => {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.warn("Loader shader compile failed:", gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    }
+    return shader;
+  };
+
+  const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+  if (!vertexShader || !fragmentShader) return completeProgress;
+
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.warn("Loader shader link failed:", gl.getProgramInfoLog(program));
+    return completeProgress;
+  }
+
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+    gl.STATIC_DRAW
+  );
+
+  const position = gl.getAttribLocation(program, "position");
+  const timeUniform = gl.getUniformLocation(program, "time");
+  const resUniform = gl.getUniformLocation(program, "res");
+  const mouseUniform = gl.getUniformLocation(program, "uMouse");
+
+  let animationFrame = 0;
+  let rawX = 0.5;
+  let rawY = 0.5;
+  let smoothX = 0.5;
+  let smoothY = 0.5;
+  const LERP = 0.07;
+  const startedAt = performance.now();
+
+  const updatePointer = (clientX, clientY) => {
+    rawX = clientX / window.innerWidth;
+    rawY = 1 - clientY / window.innerHeight;
+
+    if (cursor) {
+      cursor.style.left = `${clientX}px`;
+      cursor.style.top = `${clientY}px`;
+    }
+  };
+
+  const handleMouseMove = (event) => updatePointer(event.clientX, event.clientY);
+  const handleTouch = (event) => {
+    if (!event.touches.length) return;
+    updatePointer(event.touches[0].clientX, event.touches[0].clientY);
+  };
+
+  const resize = () => {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.floor(loader.clientWidth * pixelRatio);
+    const height = Math.floor(loader.clientHeight * pixelRatio);
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+      gl.viewport(0, 0, width, height);
+    }
+  };
+
+  const render = () => {
+    resize();
+    smoothX += (rawX - smoothX) * LERP;
+    smoothY += (rawY - smoothY) * LERP;
+
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    gl.uniform1f(timeUniform, (performance.now() - startedAt) * 0.001);
+    gl.uniform2f(resUniform, canvas.width, canvas.height);
+    gl.uniform2f(mouseUniform, smoothX, smoothY);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    animationFrame = window.requestAnimationFrame(render);
+  };
+
+  window.addEventListener("mousemove", handleMouseMove, { passive: true });
+  window.addEventListener("touchmove", handleTouch, { passive: true });
+  window.addEventListener("touchstart", handleTouch, { passive: true });
+  window.addEventListener("resize", resize, { passive: true });
+  updatePointer(window.innerWidth / 2, window.innerHeight / 2);
+  render();
+
+  return () => {
+    completeProgress();
+    window.cancelAnimationFrame(animationFrame);
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("touchmove", handleTouch);
+    window.removeEventListener("touchstart", handleTouch);
+    window.removeEventListener("resize", resize);
+    gl.deleteBuffer(buffer);
+    gl.deleteProgram(program);
+    gl.deleteShader(vertexShader);
+    gl.deleteShader(fragmentShader);
+  };
+}
+
 if (portfolioLoader) {
   const loaderSeenStorageKey = "portfolio-loader-seen";
   const pageTransitionStorageKey = "portfolio-page-transition";
@@ -33,6 +228,7 @@ if (portfolioLoader) {
   if (shouldShowLoader) {
     document.body.classList.add("portfolio-loading");
     sessionStorage.setItem(loaderSeenStorageKey, "true");
+    const stopPortfolioLoaderShader = initPortfolioLoaderShader(portfolioLoader);
 
     const startedAt = performance.now();
     const minimumLoaderTime = 3500;
@@ -41,6 +237,7 @@ if (portfolioLoader) {
       const remaining = Math.max(0, minimumLoaderTime - elapsed);
 
       window.setTimeout(() => {
+        stopPortfolioLoaderShader();
         portfolioLoader.classList.add("is-hidden");
         document.body.classList.remove("portfolio-loading");
       }, remaining);
@@ -73,27 +270,41 @@ const portfolioOwnerEmail = "ranshchettri788@gmail.com";
 // add a small backend endpoint and expose it as window.PORTFOLIO_AI_ENDPOINT.
 const chatbotResponses = {
   "who are you":
-    "Ransh Chettri is a Nepal-based BCA student, software and web developer, and AI/ML-focused builder. He works on practical web apps, UI/UX, backend logic, and real-world projects.",
+    "Ransh Chettri is a Nepal-based IT student, software and web developer, and AI/ML-focused builder. He works on practical web apps, UI/UX, backend logic, and real-world projects.",
+  "tell me about yourself":
+    "Ransh is a student developer from Nepal, building SaaS and AI-focused web applications with a strong interest in modern UX, backend logic, and real-world product design.",
   "what are your skills":
     "Core skills include C, Java, Python, JavaScript, MERN stack, Django, MySQL, MongoDB, Figma, Canva, Git, GitHub, WordPress, Android Studio, Vercel, Docker, AI/ML, and system design basics.",
+  "where do you study":
+    "Ransh studies BCA under Tribhuvan University in Nepal.",
+  "what technologies do you use":
+    "Ransh uses MERN stack for full-stack development, Python for AI/ML, Java for enterprise apps, and tools like Figma for design and Git for version control.",
   "what is your educational background":
     "Ransh is pursuing Bachelor of Computer Applications (BCA), affiliated with Tribhuvan University in Nepal.",
   "what projects have you worked on":
     "Recent projects include Online Voting System, Mobile Shop Website, Employee Management System, and this Portfolio Website.",
+  "what is your portfolio about":
+    "This portfolio showcases Ransh's skills, projects, resume, and contact info. It highlights his journey as a developer and AI enthusiast.",
   "what are your goals for the future":
     "Ransh's goal is to become a strong software developer and AI/ML specialist who can build practical, scalable products.",
-  "how can i contact you":
-    "You can contact Ransh from the Contact page, by email at ranshchettri788@gmail.com, or by phone at +977 9706574669.",
-  "what are your hobbies":
-    "Ransh spends free time building coding projects, learning new technologies, solving programming problems, playing games, and watching tech content.",
+  "what certifications do you have":
+    "Yes. Ransh has Oracle Architect, Oracle GenAI, Java, React Development, and UI/UX certifications/courses listed in the resume section.",
   "do you have any certifications":
     "Yes. Ransh has Oracle Architect, Oracle GenAI, Java, React Development, and UI/UX certifications/courses listed in the resume section.",
+  "how can i contact you":
+    "You can contact Ransh from the Contact page, by email at ranshchettri788@gmail.com, or by phone at +977 9706574669.",
+  "what is your email":
+    "You can email Ransh at ranshchettri788@gmail.com for project inquiries and collaboration.",
   "how can i collaborate with you on a project":
     "Send your project idea through the Contact page or ask for a meeting here. Share project type, timeline, budget range, and preferred contact email.",
-  "where do you study":
-    "Ransh studies BCA under Tribhuvan University in Nepal.",
   "schedule a meeting":
     "For a meeting, send your name, company, project topic, preferred date/time, and email. I can prepare a direct email draft to Ransh.",
+  "are you available":
+    "Ransh is available for freelance work and project collaboration. Use the contact page or email to share your requirements.",
+  "how much do you charge":
+    "Pricing depends on project scope. Please contact Ransh with your project details and budget so he can provide a custom quote.",
+  "what is your experience":
+    "With 3+ years in development, Ransh has built 13+ projects, served 18+ clients, and focuses on SaaS, AI/ML, and modern web products.",
 };
 
 const portfolioTopics = [
@@ -420,22 +631,20 @@ async function askConfiguredAIEndpoint(message) {
 }
 
 function getLocalPortfolioReply(message) {
-  if (!isPortfolioRelated(message)) {
-    return {
-      text:
-        "I can only answer about Ransh's portfolio, skills, projects, education, contact, and collaboration. Ask something related to his work or hiring.",
-    };
-  }
-
   const wantsEmail =
     message.includes("email") ||
     message.includes("hire") ||
     message.includes("meeting") ||
     message.includes("schedule") ||
     message.includes("collaborate") ||
-    message.includes("company");
+    message.includes("company") ||
+    message.includes("contact");
 
-  for (let question in chatbotResponses) {
+  const specializedQuestions = Object.keys(chatbotResponses).sort(
+    (a, b) => b.length - a.length
+  );
+
+  for (let question of specializedQuestions) {
     if (message.includes(question)) {
       return {
         text: chatbotResponses[question],
@@ -447,6 +656,13 @@ function getLocalPortfolioReply(message) {
           : null,
       };
     }
+  }
+
+  if (!isPortfolioRelated(message)) {
+    return {
+      text:
+        "I can only answer about Ransh's portfolio, skills, projects, education, contact, and collaboration. Ask something related to his work or hiring.",
+    };
   }
 
   if (wantsEmail) {
@@ -478,6 +694,47 @@ function getLocalPortfolioReply(message) {
     return {
       text:
         "Employee Management System handles employee records, roles, attendance, leave requests, notifications, search/filter, and CRUD workflows.",
+    };
+  }
+
+  if (message.includes("skill") || message.includes("technology") || message.includes("stack") || message.includes("framework") || message.includes("language")) {
+    return {
+      text:
+        "Ransh's core skills include JavaScript, React, Node.js, Express, MongoDB, Python, Java, and AI/ML tools like TensorFlow and scikit-learn.",
+    };
+  }
+
+  if (message.includes("education") || message.includes("study") || message.includes("college") || message.includes("university") || message.includes("degree")) {
+    return {
+      text:
+        "Ransh is pursuing a Bachelor's in Computer Applications (BCA) from Itahari Green Peace College, affiliated with Tribhuvan University.",
+    };
+  }
+
+  if (message.includes("portfolio") || message.includes("website") || message.includes("about")) {
+    return {
+      text:
+        "This portfolio highlights Ransh's projects, skills, resume, and contact details. It is designed to showcase his capabilities in web development and AI/ML.",
+    };
+  }
+
+  if (message.includes("certification") || message.includes("course") || message.includes("certificate")) {
+    return {
+      text:
+        "Ransh holds certifications in Oracle Architect, Oracle GenAI, Java, React development, and UI/UX design. More details are available in the resume section.",
+    };
+  }
+
+  if (message.includes("available") || message.includes("work") || message.includes("freelance") || message.includes("hire")) {
+    return {
+      text:
+        "Ransh is available for development and AI/ML projects. You can share your project details through the Contact page or by email.",
+      action: wantsEmail
+        ? {
+            label: "Prepare email to Ransh",
+            href: buildPortfolioMailto(message),
+          }
+        : null,
     };
   }
 
