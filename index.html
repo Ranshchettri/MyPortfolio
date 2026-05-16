@@ -1,11 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Ransh Portfolio</title>
-    <meta name="description" content="Portfolio of Ransh Chettri, a skilled developer specializing in SaaS, AI/ML, MERN stack, and more. Explore projects, skills, and contact information." />
-    <meta name="keywords" content="Ransh Chettri, portfolio, developer, SaaS, AI/ML, MERN, React, Node.js, Python, Java, WordPress" />
+    <meta
+      name="description"
+      content="Portfolio of Ransh Chettri, a skilled developer specializing in SaaS, AI/ML, MERN stack, and more. Explore projects, skills, and contact information."
+    />
+    <meta
+      name="keywords"
+      content="Ransh Chettri, portfolio, developer, SaaS, AI/ML, MERN, React, Node.js, Python, Java, WordPress"
+    />
     <meta name="author" content="Ransh Chettri" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://ranshchettri.github.io/MyPortfolio/" />
@@ -14,43 +20,79 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/loading.css" />
     <link rel="stylesheet" href="css/home.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Montserrat:wght@700;900&display=swap"
       rel="stylesheet"
     />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ransh Chettri",
-      "jobTitle": "Developer",
-      "url": "https://ranshchettri.github.io/MyPortfolio/",
-      "sameAs": [
-        "https://github.com/Ranshchettri",
-        "https://www.linkedin.com/in/ransh-chettri-852386315",
-        "https://www.instagram.com/ransh_xettri777/"
-      ],
-      "knowsAbout": ["SaaS", "AI/ML", "MERN Stack", "Python", "Java", "WordPress"]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ransh Chettri",
+        "jobTitle": "Developer",
+        "url": "https://ranshchettri.github.io/MyPortfolio/",
+        "sameAs": [
+          "https://github.com/Ranshchettri",
+          "https://www.linkedin.com/in/ransh-chettri-852386315",
+          "https://www.instagram.com/ransh_xettri777/"
+        ],
+        "knowsAbout": [
+          "SaaS",
+          "AI/ML",
+          "MERN Stack",
+          "Python",
+          "Java",
+          "WordPress"
+        ]
+      }
     </script>
   </head>
-  <body class="page-dark">
-    <div class="portfolio-loader" aria-label="Portfolio loading screen">
-      <canvas class="portfolio-loader-canvas" aria-hidden="true"></canvas>
-      <div id="custom-cursor" aria-hidden="true"></div>
-      <div class="portfolio-loader-brand">
-        <img
-          class="portfolio-loader-logo"
-          src="image/ransh-logo.png"
-          alt=""
-          aria-hidden="true"
-        />
-        <div class="portfolio-loader-title">Make it real</div>
+  <body class="page-dark loading-page-active">
+    <div
+      class="shader-loading"
+      id="shader-loading"
+      aria-label="Portfolio loading screen"
+    >
+      <canvas id="gl-canvas" aria-hidden="true"></canvas>
+
+
+      <span class="corner tl">RC · Portfolio</span>
+      <span class="corner tr">v2.0.25</span>
+      <span class="corner bl" id="fps-el">fps —</span>
+      <span class="corner br">WebGL · GLSL</span>
+
+      <svg class="cross tl" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M0 6L0 0L6 0" stroke="white" stroke-width="1.5" />
+      </svg>
+      <svg class="cross tr" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M0 6L0 0L6 0" stroke="white" stroke-width="1.5" />
+      </svg>
+      <svg class="cross bl" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M0 6L0 0L6 0" stroke="white" stroke-width="1.5" />
+      </svg>
+      <svg class="cross br" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M0 6L0 0L6 0" stroke="white" stroke-width="1.5" />
+      </svg>
+
+      <div class="overlay">
+        <div class="loader-title">Make it real</div>
+        <div class="loader-wrap">
+          <div class="bar"><div class="fill" id="fill-el"></div></div>
+          <div class="pct-label" id="pct-el">Loading</div>
+        </div>
       </div>
-      <div class="portfolio-loader-status">
-        <div class="portfolio-loader-line" aria-hidden="true"></div>
-        <span>Loading <strong class="portfolio-loader-percent">0%</strong></span>
+
+      <div class="done-screen" id="done-screen">
+        <div class="done-box">
+          <h2>Ready</h2>
+          <p>All systems initialized</p>
+          <button class="btn" type="button" onclick="restart()">↺ Replay</button>
+          <button class="btn primary" type="button" onclick="enter()">
+            Enter →
+          </button>
+        </div>
       </div>
     </div>
 
@@ -140,7 +182,7 @@
             </p>
             <button
               class="hire-btn"
-              onclick="window.location.href='contact.html'"
+              onclick="window.location.href = 'contact.html'"
             >
               Hire Me
             </button>
@@ -176,7 +218,7 @@
 
         <section class="home-right">
           <div class="title-section slide-down">
-            <h1 class="title-main">SaaS & AI </h1>
+            <h1 class="title-main">SaaS & AI</h1>
             <h2 class="title-secondary">PRODUCT DEV</h2>
             <div class="home-lines-desc-wrapper">
               <div class="home-desc-lines">
@@ -209,13 +251,22 @@
 
           <div class="cards-section">
             <article class="skill-card orange slide-in-right">
-              <div class="skill-card-pattern wave-pattern" aria-hidden="true"></div>
+              <div
+                class="skill-card-pattern wave-pattern"
+                aria-hidden="true"
+              ></div>
               <div class="skill-card-content">
                 <div class="skill-icon">
                   <i class="fa-solid fa-layer-group"></i>
                 </div>
-                <h3 class="skill-title">DYNAMIC ANIMATION,<br />MOTION DESIGN</h3>
-                <a class="skill-arrow" href="skills.html" aria-label="View skills">
+                <h3 class="skill-title">
+                  DYNAMIC ANIMATION,<br />MOTION DESIGN
+                </h3>
+                <a
+                  class="skill-arrow"
+                  href="skills.html"
+                  aria-label="View skills"
+                >
                   <i class="fa-solid fa-arrow-right"></i>
                 </a>
               </div>
@@ -231,7 +282,7 @@
                   <i class="fa-regular fa-window-restore"></i>
                 </div>
                 <h3 class="skill-title">
-                  AI|ML, MERN,FIGMA, SYSTEMDESIGN<br />JAVA,PYTHON, WORDPRESS 
+                  AI|ML, MERN,FIGMA, SYSTEMDESIGN<br />JAVA,PYTHON, WORDPRESS
                 </h3>
                 <a
                   class="skill-arrow dark-arrow"
@@ -326,8 +377,8 @@
                 <div class="project-copy">
                   <h3>Employee Management System</h3>
                   <p>
-                    A system for managing employee attendance, leave requests, and
-                    notifications.
+                    A system for managing employee attendance, leave requests,
+                    and notifications.
                   </p>
                 </div>
                 <span class="project-link-icon"
@@ -352,28 +403,29 @@
                 style="--drop-delay: 0.1s"
               >
                 <p>
-                  Myself Ransh chettri, an ambitious IT student currently pursuing my
-                  Bachelor's in Computer Applications (BCA) from Itahari Green
-                  Peace College, affiliated with Tribhuvan University. With a deep
-                  curiosity for how technology shapes the world, I'm steadily
-                  mastering everything from frontend aesthetics to backend logic. I
-                  thrive on building functional, user-friendly web applications
-                  and enjoy solving real-world problems.
+                  Myself Ransh chettri, an ambitious IT student currently
+                  pursuing my Bachelor's in Computer Applications (BCA) from
+                  Itahari Green Peace College, affiliated with Tribhuvan
+                  University. With a deep curiosity for how technology shapes
+                  the world, I'm steadily mastering everything from frontend
+                  aesthetics to backend logic. I thrive on building functional,
+                  user-friendly web applications and enjoy solving real-world
+                  problems.
                 </p>
                 <p>
-                  I'm still a student, but I don't wait for a degree to define my
-                  potential. I've already developed multiple projects including a
-                  mobile shop system with real-time chat and integrated payments,
-                  proving that passion can beat experience. I believe in learning
-                  by doing, constantly sharpening my skills across programming
-                  languages, frameworks, and UI/UX tools. With eyes set on
-                  becoming a software developer and AI/ML specialist, I'm
-                  committed to staying ahead in this ever-evolving digital game.
+                  I'm still a student, but I don't wait for a degree to define
+                  my potential. I've already developed multiple projects
+                  including a mobile shop system with real-time chat and
+                  integrated payments, proving that passion can beat experience.
+                  I believe in learning by doing, constantly sharpening my
+                  skills across programming languages, frameworks, and UI/UX
+                  tools. With eyes set on becoming a software developer and
+                  AI/ML specialist, I'm committed to staying ahead in this
+                  ever-evolving digital game.
                 </p>
               </div>
             </div>
           </section>
-
         </section>
       </section>
 
@@ -413,6 +465,7 @@
       </div>
     </div>
 
+    <script src="js/loading.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

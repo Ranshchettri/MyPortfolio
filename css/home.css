@@ -117,7 +117,9 @@ body {
   font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
   margin: 0 auto;
 }
 
@@ -150,7 +152,9 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.18s ease, color 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease;
 }
 
 .profile-mini-social:hover {
@@ -245,7 +249,11 @@ body {
 }
 
 .skill-card.orange {
-  background: linear-gradient(135deg, var(--home-orange), var(--home-orange-deep));
+  background: linear-gradient(
+    135deg,
+    var(--home-orange),
+    var(--home-orange-deep)
+  );
 }
 
 .skill-card.green {
@@ -370,7 +378,9 @@ body {
   align-items: center;
   border-radius: 18px;
   padding: 0.5rem 0.6rem;
-  transition: transform 0.22s ease, background-color 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    background-color 0.22s ease;
 }
 
 .project-row:hover {
@@ -487,8 +497,13 @@ body {
   top: 11px;
   height: 5px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #efd300 0 28%, rgba(255, 255, 255, 0.26) 28%);
-  box-shadow: 0 11px 0 rgba(255, 255, 255, 0.5),
+  background: linear-gradient(
+    90deg,
+    #efd300 0 28%,
+    rgba(255, 255, 255, 0.26) 28%
+  );
+  box-shadow:
+    0 11px 0 rgba(255, 255, 255, 0.5),
     0 22px 0 rgba(255, 255, 255, 0.24);
 }
 
@@ -776,4 +791,3 @@ body {
     text-align: center;
   }
 }
-

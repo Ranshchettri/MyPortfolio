@@ -1,4 +1,3 @@
-
 // Hamburger Menu Toggle
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
@@ -35,15 +34,27 @@ function initPortfolioLoaderShader(loader) {
   let progress = 0;
   const progressTimer = window.setInterval(() => {
     progress = Math.min(progress + Math.random() * 11 + 4, 94);
-    if (progressBar) progressBar.style.setProperty("--portfolio-loader-progress", String(progress / 100));
+    if (progressBar) {
+      progressBar.style.setProperty("--loader-progress", `${progress / 100}`);
+      progressBar.style.setProperty("transform", "translateZ(0)");
+      progressBar.style.setProperty("--progress", `${progress}%`);
+      const fill = progressBar.querySelector(":scope::after");
+      void fill;
+    }
+    progressBar?.style.setProperty(
+      "--portfolio-loader-progress",
+      String(progress / 100),
+    );
     if (progressText) progressText.textContent = `${Math.floor(progress)}%`;
-    loader.style.setProperty("--portfolio-loader-progress", String(progress / 100));
+    loader.style.setProperty(
+      "--portfolio-loader-progress",
+      String(progress / 100),
+    );
   }, 55);
 
   const completeProgress = () => {
     window.clearInterval(progressTimer);
     loader.style.setProperty("--portfolio-loader-progress", "1");
-    if (progressBar) progressBar.style.setProperty("--portfolio-loader-progress", "1");
     if (progressText) progressText.textContent = "100%";
   };
 
@@ -108,7 +119,10 @@ function initPortfolioLoaderShader(loader) {
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      console.warn("Loader shader compile failed:", gl.getShaderInfoLog(shader));
+      console.warn(
+        "Loader shader compile failed:",
+        gl.getShaderInfoLog(shader),
+      );
       gl.deleteShader(shader);
       return null;
     }
@@ -133,7 +147,7 @@ function initPortfolioLoaderShader(loader) {
   gl.bufferData(
     gl.ARRAY_BUFFER,
     new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-    gl.STATIC_DRAW
+    gl.STATIC_DRAW,
   );
 
   const position = gl.getAttribLocation(program, "position");
@@ -159,7 +173,8 @@ function initPortfolioLoaderShader(loader) {
     }
   };
 
-  const handleMouseMove = (event) => updatePointer(event.clientX, event.clientY);
+  const handleMouseMove = (event) =>
+    updatePointer(event.clientX, event.clientY);
   const handleTouch = (event) => {
     if (!event.touches.length) return;
     updatePointer(event.touches[0].clientX, event.touches[0].clientY);
@@ -197,7 +212,6 @@ function initPortfolioLoaderShader(loader) {
   window.addEventListener("touchmove", handleTouch, { passive: true });
   window.addEventListener("touchstart", handleTouch, { passive: true });
   window.addEventListener("resize", resize, { passive: true });
-  updatePointer(window.innerWidth / 2, window.innerHeight / 2);
   render();
 
   return () => {
@@ -219,8 +233,7 @@ if (portfolioLoader) {
   const pageTransitionStorageKey = "portfolio-page-transition";
   const navigationEntry = performance.getEntriesByType("navigation")[0];
   const isReload = navigationEntry && navigationEntry.type === "reload";
-  const hasSeenLoader =
-    sessionStorage.getItem(loaderSeenStorageKey) === "true";
+  const hasSeenLoader = sessionStorage.getItem(loaderSeenStorageKey) === "true";
   const hasPageTransition =
     sessionStorage.getItem(pageTransitionStorageKey) !== null;
   const shouldShowLoader = isReload || (!hasSeenLoader && !hasPageTransition);
@@ -228,7 +241,8 @@ if (portfolioLoader) {
   if (shouldShowLoader) {
     document.body.classList.add("portfolio-loading");
     sessionStorage.setItem(loaderSeenStorageKey, "true");
-    const stopPortfolioLoaderShader = initPortfolioLoaderShader(portfolioLoader);
+    const stopPortfolioLoaderShader =
+      initPortfolioLoaderShader(portfolioLoader);
 
     const startedAt = performance.now();
     const minimumLoaderTime = 3500;
@@ -359,12 +373,14 @@ const leadCaptureFields = [
     label: "Company email",
     prompt: "Send your company/work email so Ransh can reply.",
     validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
-    error: "That email does not look valid. Please send a proper company/work email.",
+    error:
+      "That email does not look valid. Please send a proper company/work email.",
   },
   {
     key: "topic",
     label: "Project / meeting topic",
-    prompt: "What do you want to discuss: website, AI/ML, MERN, Django, portfolio, or another project?",
+    prompt:
+      "What do you want to discuss: website, AI/ML, MERN, Django, portfolio, or another project?",
   },
   {
     key: "time",
@@ -374,7 +390,8 @@ const leadCaptureFields = [
   {
     key: "budget",
     label: "Budget / urgency",
-    prompt: "Optional but useful: budget range or urgency. If not fixed, type 'not fixed'.",
+    prompt:
+      "Optional but useful: budget range or urgency. If not fixed, type 'not fixed'.",
   },
 ];
 
@@ -432,7 +449,11 @@ function appendChatMessage(type, text, action) {
 }
 
 function normalizeMessage(message) {
-  return message.toLowerCase().replace(/[^\w\s@.+-]/g, " ").replace(/\s+/g, " ").trim();
+  return message
+    .toLowerCase()
+    .replace(/[^\w\s@.+-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function isPortfolioRelated(message) {
@@ -444,7 +465,7 @@ function buildPortfolioMailto(topic) {
   const body = `Hello Ransh,\n\nI visited your portfolio and want to discuss:\n${topic}\n\nMy name:\nCompany/role:\nPreferred date and time:\nReply email:\n\nThanks.`;
 
   return `mailto:${portfolioOwnerEmail}?subject=${encodeURIComponent(
-    subject
+    subject,
   )}&body=${encodeURIComponent(body)}`;
 }
 
@@ -520,7 +541,7 @@ function buildLeadMailto(data) {
   ].join("\n");
 
   return `mailto:${portfolioOwnerEmail}?subject=${encodeURIComponent(
-    subject
+    subject,
   )}&body=${encodeURIComponent(body)}`;
 }
 
@@ -641,7 +662,7 @@ function getLocalPortfolioReply(message) {
     message.includes("contact");
 
   const specializedQuestions = Object.keys(chatbotResponses).sort(
-    (a, b) => b.length - a.length
+    (a, b) => b.length - a.length,
   );
 
   for (let question of specializedQuestions) {
@@ -660,15 +681,13 @@ function getLocalPortfolioReply(message) {
 
   if (!isPortfolioRelated(message)) {
     return {
-      text:
-        "I can only answer about Ransh's portfolio, skills, projects, education, contact, and collaboration. Ask something related to his work or hiring.",
+      text: "I can only answer about Ransh's portfolio, skills, projects, education, contact, and collaboration. Ask something related to his work or hiring.",
     };
   }
 
   if (wantsEmail) {
     return {
-      text:
-        "I can help you contact Ransh. Use this email draft and add your company, project details, timeline, and preferred meeting time.",
+      text: "I can help you contact Ransh. Use this email draft and add your company, project details, timeline, and preferred meeting time.",
       action: {
         label: "Prepare email to Ransh",
         href: buildPortfolioMailto(message),
@@ -678,57 +697,74 @@ function getLocalPortfolioReply(message) {
 
   if (message.includes("online voting") || message.includes("voting")) {
     return {
-      text:
-        "Online Voting System is a MERN project with role-based access, JWT auth, OTP vote verification, one-vote-per-user logic, and real-time result calculation.",
+      text: "Online Voting System is a MERN project with role-based access, JWT auth, OTP vote verification, one-vote-per-user logic, and real-time result calculation.",
     };
   }
 
   if (message.includes("mobile")) {
     return {
-      text:
-        "Mobile Shop Website uses React, Django, MySQL, Khalti payment, cart/order flow, product listing, city-wise COD/advance logic, and seller-buyer chat.",
+      text: "Mobile Shop Website uses React, Django, MySQL, Khalti payment, cart/order flow, product listing, city-wise COD/advance logic, and seller-buyer chat.",
     };
   }
 
   if (message.includes("employee")) {
     return {
-      text:
-        "Employee Management System handles employee records, roles, attendance, leave requests, notifications, search/filter, and CRUD workflows.",
+      text: "Employee Management System handles employee records, roles, attendance, leave requests, notifications, search/filter, and CRUD workflows.",
     };
   }
 
-  if (message.includes("skill") || message.includes("technology") || message.includes("stack") || message.includes("framework") || message.includes("language")) {
+  if (
+    message.includes("skill") ||
+    message.includes("technology") ||
+    message.includes("stack") ||
+    message.includes("framework") ||
+    message.includes("language")
+  ) {
     return {
-      text:
-        "Ransh's core skills include JavaScript, React, Node.js, Express, MongoDB, Python, Java, and AI/ML tools like TensorFlow and scikit-learn.",
+      text: "Ransh's core skills include JavaScript, React, Node.js, Express, MongoDB, Python, Java, and AI/ML tools like TensorFlow and scikit-learn.",
     };
   }
 
-  if (message.includes("education") || message.includes("study") || message.includes("college") || message.includes("university") || message.includes("degree")) {
+  if (
+    message.includes("education") ||
+    message.includes("study") ||
+    message.includes("college") ||
+    message.includes("university") ||
+    message.includes("degree")
+  ) {
     return {
-      text:
-        "Ransh is pursuing a Bachelor's in Computer Applications (BCA) from Itahari Green Peace College, affiliated with Tribhuvan University.",
+      text: "Ransh is pursuing a Bachelor's in Computer Applications (BCA) from Itahari Green Peace College, affiliated with Tribhuvan University.",
     };
   }
 
-  if (message.includes("portfolio") || message.includes("website") || message.includes("about")) {
+  if (
+    message.includes("portfolio") ||
+    message.includes("website") ||
+    message.includes("about")
+  ) {
     return {
-      text:
-        "This portfolio highlights Ransh's projects, skills, resume, and contact details. It is designed to showcase his capabilities in web development and AI/ML.",
+      text: "This portfolio highlights Ransh's projects, skills, resume, and contact details. It is designed to showcase his capabilities in web development and AI/ML.",
     };
   }
 
-  if (message.includes("certification") || message.includes("course") || message.includes("certificate")) {
+  if (
+    message.includes("certification") ||
+    message.includes("course") ||
+    message.includes("certificate")
+  ) {
     return {
-      text:
-        "Ransh holds certifications in Oracle Architect, Oracle GenAI, Java, React development, and UI/UX design. More details are available in the resume section.",
+      text: "Ransh holds certifications in Oracle Architect, Oracle GenAI, Java, React development, and UI/UX design. More details are available in the resume section.",
     };
   }
 
-  if (message.includes("available") || message.includes("work") || message.includes("freelance") || message.includes("hire")) {
+  if (
+    message.includes("available") ||
+    message.includes("work") ||
+    message.includes("freelance") ||
+    message.includes("hire")
+  ) {
     return {
-      text:
-        "Ransh is available for development and AI/ML projects. You can share your project details through the Contact page or by email.",
+      text: "Ransh is available for development and AI/ML projects. You can share your project details through the Contact page or by email.",
       action: wantsEmail
         ? {
             label: "Prepare email to Ransh",
@@ -739,8 +775,7 @@ function getLocalPortfolioReply(message) {
   }
 
   return {
-    text:
-      "Ransh is a BCA student and software/AI-ML-focused developer. Ask about his skills, projects, resume, certifications, or how to contact/hire him.",
+    text: "Ransh is a BCA student and software/AI-ML-focused developer. Ask about his skills, projects, resume, certifications, or how to contact/hire him.",
   };
 }
 
@@ -871,7 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       threshold: 0.16,
       rootMargin: "0px 0px -8% 0px",
-    }
+    },
   );
 
   scrollDrops.forEach((element) => revealObserver.observe(element));
@@ -910,7 +945,7 @@ function buildMailtoLink(name, email, message) {
   const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
 
   return `mailto:ranshchettri788@gmail.com?subject=${encodeURIComponent(
-    subject
+    subject,
   )}&body=${encodeURIComponent(body)}`;
 }
 
@@ -924,7 +959,10 @@ async function sendContactMessage(event) {
   const message = contactForm.elements.message.value.trim();
 
   if (!name || !email || !message) {
-    updateContactStatus("Please fill in your name, email, and message.", "error");
+    updateContactStatus(
+      "Please fill in your name, email, and message.",
+      "error",
+    );
     return;
   }
 
@@ -944,7 +982,7 @@ async function sendContactMessage(event) {
   if (shouldUseMailtoFallback) {
     updateContactStatus(
       "Local preview cannot send directly. Opening your email app as fallback.",
-      "info"
+      "info",
     );
     window.location.href = mailtoLink;
     if (submitButton) {
@@ -971,24 +1009,28 @@ async function sendContactMessage(event) {
           _replyto: email,
           _template: "table",
         }),
-      }
+      },
     );
 
     const result = await response.json().catch(() => ({}));
 
-    if (!response.ok || result.success === false || result.success === "false") {
+    if (
+      !response.ok ||
+      result.success === false ||
+      result.success === "false"
+    ) {
       throw new Error(result.message || "Unable to send message right now.");
     }
 
     contactForm.reset();
     updateContactStatus(
       "Message sent successfully. I will get back to you soon.",
-      "success"
+      "success",
     );
   } catch (error) {
     updateContactStatus(
       "Direct send was unavailable here. Opening your email app as backup.",
-      "error"
+      "error",
     );
     window.location.href = mailtoLink;
   } finally {
@@ -1073,8 +1115,8 @@ function shouldIgnoreAutoPageTarget(target) {
 
   return Boolean(
     target.closest(
-      "nav, #chatbox, #chatbot, input, textarea, button, a, iframe, .chat-input-area"
-    )
+      "nav, #chatbox, #chatbot, input, textarea, button, a, iframe, .chat-input-area",
+    ),
   );
 }
 
@@ -1082,7 +1124,7 @@ function getTransitionScrollTop(direction) {
   if (direction === "backward") {
     return Math.max(
       document.documentElement.scrollHeight - window.innerHeight,
-      0
+      0,
     );
   }
 
@@ -1102,7 +1144,7 @@ function applyStoredPageEntryTransition() {
   const isForward = storedDirection === "forward";
   document.body.classList.add(
     "page-pre-enter",
-    isForward ? "page-pre-enter-next" : "page-pre-enter-prev"
+    isForward ? "page-pre-enter-next" : "page-pre-enter-prev",
   );
 
   requestAnimationFrame(() => {
@@ -1116,7 +1158,7 @@ function applyStoredPageEntryTransition() {
     function () {
       jumpToTransitionEdge(storedDirection);
     },
-    { once: true }
+    { once: true },
   );
 
   window.setTimeout(() => {
@@ -1124,7 +1166,7 @@ function applyStoredPageEntryTransition() {
       "page-pre-enter",
       "page-pre-enter-next",
       "page-pre-enter-prev",
-      "page-enter-active"
+      "page-enter-active",
     );
     sessionStorage.removeItem(PAGE_TRANSITION_STORAGE_KEY);
   }, 620);
@@ -1148,7 +1190,7 @@ function triggerPageTransition(direction) {
     "page-transitioning",
     direction === "forward"
       ? "page-transition-forward"
-      : "page-transition-backward"
+      : "page-transition-backward",
   );
 
   window.setTimeout(() => {
@@ -1189,7 +1231,7 @@ window.addEventListener(
   function (event) {
     handleEdgeScroll(event.deltaY, event.target);
   },
-  { passive: true }
+  { passive: true },
 );
 
 window.addEventListener(
@@ -1198,7 +1240,7 @@ window.addEventListener(
     if (!event.touches.length) return;
     touchStartY = event.touches[0].clientY;
   },
-  { passive: true }
+  { passive: true },
 );
 
 window.addEventListener(
@@ -1222,7 +1264,7 @@ window.addEventListener(
       touchStartY = null;
     }
   },
-  { passive: false }
+  { passive: false },
 );
 
 window.addEventListener(
@@ -1231,7 +1273,7 @@ window.addEventListener(
     touchStartY = null;
     resetEdgeScrollState();
   },
-  { passive: true }
+  { passive: true },
 );
 
 document.addEventListener("DOMContentLoaded", applyStoredPageEntryTransition);
