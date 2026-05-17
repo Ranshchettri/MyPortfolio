@@ -1,4 +1,4 @@
-# 💼 Ransh Portfolio — Personal Portfolio Website.
+# 💼 Ransh Portfolio — Personal Portfolio Website
 
 <p>
   <img src="https://img.shields.io/badge/📄%20FRONTEND-HTML5-555555?style=for-the-badge" alt="Frontend HTML5" />
