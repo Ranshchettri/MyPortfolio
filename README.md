@@ -1,5 +1,5 @@
-# 💼 Ransh Portfolio — Personal Portfolio Website
-
+# 💼 Ransh Portfolio — Personal Portfolio Website 
+ 
 <p>
   <img src="https://img.shields.io/badge/📄%20FRONTEND-HTML5-555555?style=for-the-badge" alt="Frontend HTML5" />
   <img src="https://img.shields.io/badge/CSS3-STYLING-2f80ed?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3 Styling" />
@@ -22,7 +22,6 @@ A modern, responsive **Personal Portfolio Website** built with **HTML5**, **CSS3
 - [Getting Started](#-getting-started)
 - [Pages](#-pages)
 - [Chat Assistant](#-chat-assistant)
-- [Screenshots](#-screenshots)
 - [Unique Highlights](#-unique-highlights)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -72,7 +71,7 @@ The current build focuses on:
 - Feature cards for animation, AI/ML, MERN, Figma, system design, Java, Python, and WordPress
 - Recent project list
 - About Me section
-- Cinematic **Make it real** intro loader
+- Cinematic **3D Flip Card** intro loader (features a WebGL Ken-Burns canvas background, centered dark-gray progress boxes, and an ups-and-down 3D flip revealing a black "Make it real" title that dissolves into grainy sand/dust)
 
 ### 📄 Resume Page
 
@@ -243,23 +242,11 @@ After collecting details, it can create:
 
 ---
 
-## 📸 Screenshots
-
-| Page | Screenshot |
-|---|---|
-| Home / Landing | `screenshots/home.png` |
-| Resume | `screenshots/resume.png` |
-| Skills | `screenshots/skills.png` |
-| Contact | `screenshots/contact.png` |
-| Chat Assistant | `screenshots/chatbot.png` |
-
----
-
 ## 🌟 Unique Highlights
 
 ### 🎬 Make It Real Intro
 
-The home page starts with a cinematic **Make it real** loader. The title enters from the right, the loading indicator sits lower on the screen, and the portfolio opens after a short premium loading moment.
+The home page starts with a cinematic **3D Flip Card** loader. It features a slow Ken-Burns background panning canvas and centered progress indicator boxes (styled in dark gray, shifted slightly downwards). When progress completes, the loading container performs an ups-and-downs 3D flip animation to reveal the black **Make it real** text, which smoothly dissolves into fine grainy sand/dust using a high-frequency fractal noise displacement filter. Furthermore, a smart session check ensures that the loader runs only on the first visit or reload, bypassing it on standard page-to-page navigation.
 
 ### 🧩 Connected Page Flow
 
@@ -270,14 +257,9 @@ The website supports edge-scroll page movement:
 3. `skills.html`
 4. `contact.html`
 
-### 🖼 Generated Project Banners
+### 🖼 Clean Projects Layout
 
-Recent projects use custom generated banners:
-
-- Online Voting System
-- MobileVerse
-- Portfolio Website
-- Employee Management System
+The recent projects showcase features a transparent and clean visual style. The borders and backgrounds have been streamlined with subtle dividers to emphasize the project banners and titles.
 
 ### 📬 Smart Inquiry Flow
 
@@ -305,7 +287,15 @@ Then open a Pull Request with a clear summary.
 
 ## 📄 License
 
-This is a personal portfolio project. 
+This project is licensed under the MIT License.
+
+Copyright (c) 2026 Ransh Chettri
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 

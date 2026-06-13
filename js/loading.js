@@ -92,33 +92,75 @@ function initAnimation() {
 initAnimation();
 
 /* ── Loader progress bar ── */
-const loadDuration = 2500;
+const loadDuration = 2400;
 let startTime = 0;
 
 function startLoader() {
   window.clearInterval(loaderInterval);
   startTime = performance.now();
 
+  const boxes = document.querySelectorAll(".loader-flip-front .loader-box");
+  const pctEl = document.getElementById("box-loader-pct");
+  const card = document.getElementById("loader-flip-card");
+  const title = document.getElementById("loader-title");
+
   loaderInterval = window.setInterval(() => {
     const elapsed = performance.now() - startTime;
     const p       = Math.min(100, Math.round((elapsed / loadDuration) * 100));
-    const fillEl  = document.getElementById("fill-el");
-    const pctEl   = document.getElementById("pct-el");
 
-    if (fillEl) fillEl.style.width  = p + "%";
-    if (pctEl)  pctEl.textContent   = "Loading";
+    if (pctEl) pctEl.textContent = p + "%";
+
+    // Activate appropriate number of boxes (1 box per 10% progress)
+    const activeCount = Math.floor(p / 10);
+    boxes.forEach((box, index) => {
+      if (index < activeCount) {
+        box.classList.add("active");
+      } else {
+        box.classList.remove("active");
+      }
+    });
 
     if (p >= 100) {
       window.clearInterval(loaderInterval);
-      window.setTimeout(enter, 900);
+
+      // Timeline after loading finishes:
+      // 1. Flip the card to show "Make it real"
+      window.setTimeout(() => {
+        if (card) card.classList.add("flipped");
+      }, 200);
+
+      // 2. Dissolve / erase the text after flip completes
+      window.setTimeout(() => {
+        if (title) {
+          title.classList.add("erase");
+          const displaceAnim = document.getElementById("displace-anim");
+          const fadeAnim = document.getElementById("fade-anim");
+          if (displaceAnim) displaceAnim.beginElement();
+          if (fadeAnim) fadeAnim.beginElement();
+        }
+      }, 1200);
+
+      // 3. Slide up / fade out loading screen and enter website
+      window.setTimeout(() => {
+        enter();
+      }, 2700);
     }
   }, 32);
 }
 
 function restart() {
-  document.getElementById("fill-el").style.width = "0%";
-  document.getElementById("pct-el").textContent  = "Loading";
-  document.getElementById("done-screen").classList.remove("show");
+  const boxes = document.querySelectorAll(".loader-flip-front .loader-box");
+  boxes.forEach(box => box.classList.remove("active"));
+  document.getElementById("box-loader-pct").textContent = "0%";
+  
+  const card = document.getElementById("loader-flip-card");
+  if (card) card.classList.remove("flipped");
+  
+  const title = document.getElementById("loader-title");
+  if (title) {
+    title.classList.remove("erase");
+  }
+
   startLoader();
 }
 
@@ -126,6 +168,7 @@ function enter() {
   if (!shaderLoader) return;
   shaderLoader.classList.add("hide");
   document.body.classList.remove("loading-page-active");
+  sessionStorage.setItem("loader-seen", "true");
   window.clearInterval(loaderInterval);
 
   window.setTimeout(() => {
@@ -135,6 +178,15 @@ function enter() {
   }, 1500);
 }
 
-if (shaderLoader) {
-  startLoader();
+// Check if we should skip the loader page
+const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+const hasSeenLoader = sessionStorage.getItem("loader-seen") === "true";
+
+if (hasSeenLoader && !isReload) {
+  if (shaderLoader) shaderLoader.remove();
+  document.body.classList.remove("loading-page-active");
+} else {
+  if (shaderLoader) {
+    startLoader();
+  }
 }

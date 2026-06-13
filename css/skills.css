@@ -25,12 +25,15 @@ body {
 
 .skills-word-stack span {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(4.5rem, 6.5vw, 8rem);
+  font-size: clamp(3.5rem, 5.5vw, 8rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.0;
   color: #fcfcfc;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  max-width: 100%;
 }
 
 .skills-word-stack span + span {
@@ -96,7 +99,7 @@ body {
   }
 
   .skills-word-stack span {
-    font-size: clamp(3.8rem, 6vw, 6rem);
+    font-size: clamp(2.8rem, 5vw, 6rem);
   }
 }
 
@@ -108,10 +111,14 @@ body {
 
   .skills-word-stack {
     padding-top: 0.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .skills-word-stack span {
-    white-space: normal;
+    white-space: nowrap;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
   }
 
   .skills-side {

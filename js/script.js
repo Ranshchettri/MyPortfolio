@@ -1296,3 +1296,29 @@ window.addEventListener("load", function () {
     }, 50);
   });
 });
+
+// Collapsible circle navbar logic
+let navScrollTimeout;
+window.addEventListener("scroll", function () {
+  const nav = document.querySelector("nav.icon-nav");
+  if (nav) {
+    nav.classList.add("scrolling-active");
+    clearTimeout(navScrollTimeout);
+    navScrollTimeout = setTimeout(() => {
+      nav.classList.remove("scrolling-active");
+    }, 250);
+  }
+});
+
+// Set data-active attribute on load
+document.addEventListener("DOMContentLoaded", () => {
+  const activeLink = document.querySelector("nav.icon-nav ul.nav-links li a.active");
+  const nav = document.querySelector("nav.icon-nav");
+  if (activeLink && nav) {
+    const li = activeLink.parentElement;
+    const index = Array.from(li.parentElement.children).indexOf(li) + 1;
+    nav.setAttribute("data-active", index);
+  }
+});
+
+// Word-reveal effect removed by user request

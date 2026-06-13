@@ -50,6 +50,18 @@
     </script>
   </head>
   <body class="page-dark loading-page-active">
+    <script>
+      (function() {
+        const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+        const hasSeenLoader = sessionStorage.getItem("loader-seen") === "true";
+        if (hasSeenLoader && !isReload) {
+          document.body.classList.remove("loading-page-active");
+          const style = document.createElement('style');
+          style.textContent = '#shader-loading { display: none !important; }';
+          document.head.appendChild(style);
+        }
+      })();
+    </script>
     <div
       class="shader-loading"
       id="shader-loading"
@@ -76,12 +88,45 @@
       </svg>
 
       <div class="overlay">
-        <div class="loader-title">Make it real</div>
-        <div class="loader-wrap">
-          <div class="bar"><div class="fill" id="fill-el"></div></div>
-          <div class="pct-label" id="pct-el">Loading</div>
+        <div class="loader-flip-container">
+          <div class="loader-flip-card" id="loader-flip-card">
+            <!-- Front Side: Progress Loader -->
+            <div class="loader-flip-front">
+              <div class="box-loader-row">
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+                <div class="loader-box"></div>
+              </div>
+              <div class="box-loader-pct-val" id="box-loader-pct">0%</div>
+            </div>
+            <!-- Back Side: "Make it real" Text -->
+            <div class="loader-flip-back">
+              <div class="loader-title" id="loader-title">Make it real</div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+        <filter id="dissolve">
+          <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="displaced">
+            <animate attributeName="scale" values="0;220" dur="1.5s" fill="freeze" begin="indefinite" id="displace-anim" />
+          </feDisplacementMap>
+          <feComponentTransfer in="displaced">
+            <feFuncA type="linear" slope="1">
+              <animate attributeName="slope" values="1;0" dur="1.5s" fill="freeze" begin="indefinite" id="fade-anim" />
+            </feFuncA>
+          </feComponentTransfer>
+        </filter>
+      </svg>
 
       <div class="done-screen" id="done-screen">
         <div class="done-box">
@@ -306,7 +351,7 @@
               <a
                 class="project-row scroll-drop"
                 href="resume.html#ovs-project"
-                style="--drop-delay: 0.04s"
+                style="--drop-delay: 0.04s; --card-index: 0;"
               >
                 <div class="project-thumb project-poster poster-ovs">
                   <span class="thumb-title">OVS</span>
@@ -329,7 +374,7 @@
                 href="https://github.com/Ranshchettri/MobileVerses"
                 target="_blank"
                 rel="noopener noreferrer"
-                style="--drop-delay: 0.09s"
+                style="--drop-delay: 0.09s; --card-index: 1;"
               >
                 <div class="project-thumb project-poster poster-mobileverse">
                   <span class="thumb-title">MobileVerses</span>
@@ -349,7 +394,7 @@
               <a
                 class="project-row scroll-drop"
                 href="index.html"
-                style="--drop-delay: 0.14s"
+                style="--drop-delay: 0.14s; --card-index: 2;"
               >
                 <div class="project-thumb project-poster poster-portfolio">
                   <span class="thumb-title">Portfolio</span>
@@ -369,7 +414,7 @@
                 href="https://github.com/Ranshchettri/BCA-4TH-semester-Project"
                 target="_blank"
                 rel="noopener noreferrer"
-                style="--drop-delay: 0.19s"
+                style="--drop-delay: 0.19s; --card-index: 3;"
               >
                 <div class="project-thumb project-poster poster-employee">
                   <span class="thumb-title">EMS</span>
