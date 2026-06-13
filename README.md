@@ -71,7 +71,7 @@ The current build focuses on:
 - Feature cards for animation, AI/ML, MERN, Figma, system design, Java, Python, and WordPress
 - Recent project list
 - About Me section
-- Cinematic **3D Flip Card** intro loader (features a WebGL Ken-Burns canvas background, centered dark-gray progress boxes, and an ups-and-down 3D flip revealing a black "Make it real" title that dissolves into grainy sand/dust)
+- Cinematic **3D Flip Card** intro loader (features a WebGL Ken-Burns canvas background, showing a white "Make it real" title that dissolves into grainy sand/dust, and then performing an ups-and-down 3D flip to show a white box progress loader)
 
 ### 📄 Resume Page
 
@@ -246,7 +246,7 @@ After collecting details, it can create:
 
 ### 🎬 Make It Real Intro
 
-The home page starts with a cinematic **3D Flip Card** loader. It features a slow Ken-Burns background panning canvas and centered progress indicator boxes (styled in dark gray, shifted slightly downwards). When progress completes, the loading container performs an ups-and-downs 3D flip animation to reveal the black **Make it real** text, which smoothly dissolves into fine grainy sand/dust using a high-frequency fractal noise displacement filter. Furthermore, a smart session check ensures that the loader runs only on the first visit or reload, bypassing it on standard page-to-page navigation.
+The home page starts with a cinematic **3D Flip Card** loader. It features a slow Ken-Burns background panning canvas. The loader begins by displaying the white **Make it real** title, which smoothly dissolves/erases into fine grainy sand/dust using a high-frequency fractal noise displacement filter. Once dissolved, the card performs an ups-and-downs 3D flip to reveal the white progress indicator boxes (shifted slightly downwards) that count from 0% to 100% before entering the website. Furthermore, a smart session check ensures that the loader runs only on the first visit or reload, bypassing it on standard page-to-page navigation.
 
 ### 🧩 Connected Page Flow
 
@@ -287,15 +287,7 @@ Then open a Pull Request with a clear summary.
 
 ## 📄 License
 
-This project is licensed under the MIT License.
-
-Copyright (c) 2026 Ransh Chettri
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 

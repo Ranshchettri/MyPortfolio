@@ -97,70 +97,66 @@ let startTime = 0;
 
 function startLoader() {
   window.clearInterval(loaderInterval);
-  startTime = performance.now();
 
-  const boxes = document.querySelectorAll(".loader-flip-front .loader-box");
+  const boxes = document.querySelectorAll(".loader-flip-back .loader-box");
   const pctEl = document.getElementById("box-loader-pct");
   const card = document.getElementById("loader-flip-card");
   const title = document.getElementById("loader-title");
 
-  loaderInterval = window.setInterval(() => {
-    const elapsed = performance.now() - startTime;
-    const p       = Math.min(100, Math.round((elapsed / loadDuration) * 100));
+  // Reset elements to initial states
+  if (card) card.classList.remove("flipped");
+  if (title) title.classList.remove("erase");
+  if (pctEl) pctEl.textContent = "0%";
+  boxes.forEach(box => box.classList.remove("active"));
 
-    if (pctEl) pctEl.textContent = p + "%";
-
-    // Activate appropriate number of boxes (1 box per 10% progress)
-    const activeCount = Math.floor(p / 10);
-    boxes.forEach((box, index) => {
-      if (index < activeCount) {
-        box.classList.add("active");
-      } else {
-        box.classList.remove("active");
-      }
-    });
-
-    if (p >= 100) {
-      window.clearInterval(loaderInterval);
-
-      // Timeline after loading finishes:
-      // 1. Flip the card to show "Make it real"
-      window.setTimeout(() => {
-        if (card) card.classList.add("flipped");
-      }, 200);
-
-      // 2. Dissolve / erase the text after flip completes
-      window.setTimeout(() => {
-        if (title) {
-          title.classList.add("erase");
-          const displaceAnim = document.getElementById("displace-anim");
-          const fadeAnim = document.getElementById("fade-anim");
-          if (displaceAnim) displaceAnim.beginElement();
-          if (fadeAnim) fadeAnim.beginElement();
-        }
-      }, 1200);
-
-      // 3. Slide up / fade out loading screen and enter website
-      window.setTimeout(() => {
-        enter();
-      }, 2700);
+  // Sequence:
+  // 1. Show "Make it real" text first (on loader-flip-front, rotateX(0))
+  // 2. After 1200ms, start the erase/dissolve animation
+  window.setTimeout(() => {
+    if (title) {
+      title.classList.add("erase");
+      const displaceAnim = document.getElementById("displace-anim");
+      const fadeAnim = document.getElementById("fade-anim");
+      if (displaceAnim) displaceAnim.beginElement();
+      if (fadeAnim) fadeAnim.beginElement();
     }
-  }, 32);
+  }, 1200);
+
+  // 3. After erase is complete (1200ms + 1500ms = 2700ms), flip the card to show the loading bar (on back side)
+  window.setTimeout(() => {
+    if (card) card.classList.add("flipped");
+  }, 2700);
+
+  // 4. Once card flip transition completes (2700ms + 800ms = 3500ms), start the progress boxes loading
+  window.setTimeout(() => {
+    startTime = performance.now();
+    loaderInterval = window.setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      const p       = Math.min(100, Math.round((elapsed / loadDuration) * 100));
+
+      if (pctEl) pctEl.textContent = p + "%";
+
+      const activeCount = Math.floor(p / 10);
+      boxes.forEach((box, index) => {
+        if (index < activeCount) {
+          box.classList.add("active");
+        } else {
+          box.classList.remove("active");
+        }
+      });
+
+      if (p >= 100) {
+        window.clearInterval(loaderInterval);
+        // 5. Enter website after it reaches 100%
+        window.setTimeout(() => {
+          enter();
+        }, 500);
+      }
+    }, 32);
+  }, 3500);
 }
 
 function restart() {
-  const boxes = document.querySelectorAll(".loader-flip-front .loader-box");
-  boxes.forEach(box => box.classList.remove("active"));
-  document.getElementById("box-loader-pct").textContent = "0%";
-  
-  const card = document.getElementById("loader-flip-card");
-  if (card) card.classList.remove("flipped");
-  
-  const title = document.getElementById("loader-title");
-  if (title) {
-    title.classList.remove("erase");
-  }
-
   startLoader();
 }
 

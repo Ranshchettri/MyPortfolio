@@ -126,7 +126,7 @@ body.loading-page-active {
   font-family: "Kalam", cursive;
   font-size: clamp(4.8rem, 14vw, 8.8rem);
   font-weight: 700;
-  color: #000000;
+  color: #ffffff;
   letter-spacing: -0.03em;
   line-height: 0.98;
   text-align: center;
@@ -175,12 +175,12 @@ body.loading-page-active {
 
 .loader-flip-front {
   z-index: 2;
-  transform: rotateX(0deg) translateY(25px);
+  transform: rotateX(0deg);
   gap: 16px;
 }
 
 .loader-flip-back {
-  transform: rotateX(180deg);
+  transform: rotateX(180deg) translateY(25px);
 }
 
 .box-loader-row {
@@ -197,8 +197,8 @@ body.loading-page-active {
   transition: background 0.12s ease, box-shadow 0.2s ease;
 }
 .loader-box.active {
-  background: #333333;
-  box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 .box-loader-pct-val {
   font-family: "Space Mono", monospace;
@@ -219,7 +219,7 @@ body.loading-page-active {
 
 @media (max-width: 640px) {
   .loader-title {
-    font-size: clamp(3rem, 18vw, 4.8rem);
+    font-size: clamp(1.8rem, 11vw, 4rem);
     letter-spacing: -0.04em;
   }
 
