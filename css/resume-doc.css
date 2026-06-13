@@ -1,0 +1,196 @@
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10.5pt;
+  color: #1a1a1a;
+  background: #fff;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 30px 36px;
+  line-height: 1.45;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Header ── */
+.r-name {
+  font-size: 23pt;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.r-contact {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9pt;
+  color: #333;
+  margin-bottom: 2px;
+}
+.r-contact a { color: #333; }
+.r-contact a:hover { text-decoration: underline; }
+
+/* ── Section heading ── */
+.r-section { margin-top: 12px; }
+.r-section-title {
+  font-size: 10.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  border-bottom: 1.2px solid #888;
+  padding-bottom: 2px;
+  margin-bottom: 7px;
+}
+
+/* ── Skills Summary ── */
+.skill-row {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2px;
+  font-size: 9.8pt;
+}
+.skill-label {
+  font-weight: 700;
+  min-width: 145px;
+  flex-shrink: 0;
+}
+
+/* ── Education ── */
+.edu-entry { margin-bottom: 8px; }
+.edu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.edu-inst { font-weight: 700; }
+.edu-loc { font-size: 9.3pt; color: #333; }
+.edu-degree { display: flex; justify-content: space-between; }
+.edu-deg-name { font-style: italic; }
+.edu-dates { font-size: 9.3pt; color: #333; }
+.edu-fav { font-size: 9pt; color: #555; margin-top: 1px; }
+.edu-fav b { color: #1a1a1a; }
+
+/* ── Experience ── */
+.exp-entry { margin-bottom: 11px; }
+.exp-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.exp-left {}
+.exp-role { font-weight: 700; font-size: 10.5pt; }
+.exp-company { font-style: italic; font-size: 9.8pt; color: #222; }
+.exp-right { text-align: right; font-size: 9pt; color: #333; flex-shrink: 0; margin-left: 12px; }
+.exp-bullets { margin-top: 4px; padding-left: 16px; }
+.exp-bullets li { list-style: disc; font-size: 9.5pt; margin-bottom: 1px; }
+
+/* ── Projects ── */
+.proj-entry { margin-bottom: 9px; }
+.proj-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.proj-name {
+  font-weight: 700;
+  color: #1a3585;
+  text-decoration: underline;
+  font-size: 9.8pt;
+  cursor: default;
+}
+.proj-name a { color: #1a3585; text-decoration: underline; }
+.proj-link-btn {
+  font-size: 8.2pt;
+  border: 1px solid #1a3585;
+  color: #1a3585;
+  padding: 1px 7px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.proj-link-btn:hover { background: #1a3585; color: #fff; }
+.proj-desc { font-size: 9.5pt; margin-top: 3px; }
+.proj-desc li { list-style: none; margin-bottom: 1px; }
+.proj-desc li::before { content: "◦ "; }
+.proj-tech { font-size: 9pt; color: #555; margin-top: 2px; }
+
+/* ── Achievements ── */
+.ach-list { list-style: none; padding-left: 10px; }
+.ach-list li { font-size: 9.5pt; margin-bottom: 3px; }
+.ach-list li::before { content: "◦ "; }
+.ach-highlight { color: #1a1a8a; font-weight: 700; }
+
+/* ── Certifications ── */
+.cert-list { list-style: disc; padding-left: 20px; }
+.cert-list li { font-size: 9.5pt; margin-bottom: 2px; }
+
+/* ── Print button (no-print) ── */
+.print-bar {
+  text-align: right;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn-print, .btn-back {
+  font-size: 9pt;
+  padding: 5px 16px;
+  border: 1px solid #333;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-print:hover, .btn-back:hover { background: #1a1a1a; color: #fff; }
+
+/* ── Mobile responsiveness ── */
+@media (max-width: 650px) {
+  body {
+    padding: 20px 18px;
+    font-size: 10pt;
+  }
+  .r-name {
+    font-size: 19pt;
+    text-align: center;
+  }
+  .r-contact {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 8.8pt;
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+  .r-contact span {
+    display: block;
+  }
+  .skill-row {
+    flex-direction: column;
+    margin-bottom: 6px;
+  }
+  .skill-label {
+    min-width: auto;
+    margin-bottom: 2px;
+  }
+  .edu-top, .edu-degree, .exp-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+  .exp-right {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 3px;
+    margin-bottom: 6px;
+  }
+  .edu-dates {
+    margin-top: 1px;
+  }
+  .print-bar {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  body { padding: 18px 22px; font-size: 9.8pt; }
+  .no-print { display: none; }
+}

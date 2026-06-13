@@ -315,3 +315,26 @@
     height: 320px;
   }
 }
+
+.btn-view-clean-wrapper {
+  margin: 18px 0;
+}
+
+.btn-view-clean {
+  display: inline-block;
+  padding: 10px 28px;
+  background: #111;
+  color: #fff;
+  font-family: 'Space Mono', monospace, Arial, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1.5px solid #111;
+  transition: background 0.18s, color 0.18s;
+}
+
+.btn-view-clean:hover {
+  background: transparent;
+  color: #111;
+}

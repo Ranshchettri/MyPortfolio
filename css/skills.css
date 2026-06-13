@@ -12,7 +12,7 @@ body {
 
 .skills-layout {
   display: grid;
-  grid-template-columns: minmax(620px, 1fr) minmax(670px, 1.04fr);
+  grid-template-columns: 1fr 1fr;
   gap: 3.2rem;
   align-items: start;
 }
@@ -25,10 +25,10 @@ body {
 
 .skills-word-stack span {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(6.45rem, 8.15vw, 8.55rem);
+  font-size: clamp(4.5rem, 6.5vw, 8rem);
   font-weight: 900;
-  letter-spacing: -0.015em;
-  line-height: 0.9;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
   color: #fcfcfc;
   white-space: nowrap;
 }
@@ -46,10 +46,10 @@ body {
 
 .skills-title {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(4.7rem, 5.8vw, 6.4rem);
+  font-size: clamp(3.5rem, 5vw, 5.5rem);
   font-weight: 900;
-  letter-spacing: -0.09em;
-  line-height: 0.86;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
   color: #f7f7f7;
   margin-bottom: 2.1rem;
   text-align: center;
@@ -91,12 +91,12 @@ body {
   }
 
   .skills-layout {
-    grid-template-columns: minmax(520px, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 2.35rem;
   }
 
   .skills-word-stack span {
-    font-size: clamp(5.3rem, 7vw, 7.1rem);
+    font-size: clamp(3.8rem, 6vw, 6rem);
   }
 }
 
@@ -133,12 +133,14 @@ body {
   }
 
   .skills-word-stack span {
-    font-size: clamp(3.7rem, 13vw, 5rem);
-    letter-spacing: -0.11em;
+    font-size: clamp(2rem, 9vw, 3.2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
 
   .skills-title {
-    font-size: clamp(3.8rem, 15vw, 5.2rem);
+    font-size: clamp(2.2rem, 11vw, 3.5rem);
+    letter-spacing: -0.03em;
   }
 
   .skills-column h2 {

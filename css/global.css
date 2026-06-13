@@ -51,10 +51,19 @@ body.page-transitioning {
 }
 
 body.page-transitioning::after {
-  opacity: 1;
+  opacity: 0;
 }
 
-body.page-transitioning main,
+/* Shell elements (fade transitions) */
+body nav,
+body .brand-floating,
+body .social-floating,
+body .social-icons,
+body #chatbot,
+body #chatbox {
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
 body.page-transitioning nav,
 body.page-transitioning .brand-floating,
 body.page-transitioning .social-floating,
@@ -62,30 +71,9 @@ body.page-transitioning .social-icons,
 body.page-transitioning #chatbot,
 body.page-transitioning #chatbox {
   opacity: 0;
-  filter: blur(5px);
+  filter: blur(2px);
 }
 
-body.page-transition-forward main,
-body.page-transition-forward nav,
-body.page-transition-forward .brand-floating,
-body.page-transition-forward .social-floating,
-body.page-transition-forward .social-icons,
-body.page-transition-forward #chatbot,
-body.page-transition-forward #chatbox {
-  transform: translateY(-78px);
-}
-
-body.page-transition-backward main,
-body.page-transition-backward nav,
-body.page-transition-backward .brand-floating,
-body.page-transition-backward .social-floating,
-body.page-transition-backward .social-icons,
-body.page-transition-backward #chatbot,
-body.page-transition-backward #chatbox {
-  transform: translateY(78px);
-}
-
-body.page-pre-enter main,
 body.page-pre-enter nav,
 body.page-pre-enter .brand-floating,
 body.page-pre-enter .social-floating,
@@ -93,30 +81,9 @@ body.page-pre-enter .social-icons,
 body.page-pre-enter #chatbot,
 body.page-pre-enter #chatbox {
   opacity: 0;
-  filter: blur(5px);
+  filter: blur(2px);
 }
 
-body.page-pre-enter-next main,
-body.page-pre-enter-next nav,
-body.page-pre-enter-next .brand-floating,
-body.page-pre-enter-next .social-floating,
-body.page-pre-enter-next .social-icons,
-body.page-pre-enter-next #chatbot,
-body.page-pre-enter-next #chatbox {
-  transform: translateY(78px);
-}
-
-body.page-pre-enter-prev main,
-body.page-pre-enter-prev nav,
-body.page-pre-enter-prev .brand-floating,
-body.page-pre-enter-prev .social-floating,
-body.page-pre-enter-prev .social-icons,
-body.page-pre-enter-prev #chatbot,
-body.page-pre-enter-prev #chatbox {
-  transform: translateY(-78px);
-}
-
-body.page-enter-active main,
 body.page-enter-active nav,
 body.page-enter-active .brand-floating,
 body.page-enter-active .social-floating,
@@ -125,7 +92,45 @@ body.page-enter-active #chatbot,
 body.page-enter-active #chatbox {
   opacity: 1;
   filter: blur(0);
-  transform: translateY(0);
+}
+
+/* Main page content (Card Stack transition) */
+body main {
+  transition: transform 0.52s cubic-bezier(0.32, 0.94, 0.6, 1), opacity 0.52s ease;
+  transform-origin: center top;
+  backface-visibility: hidden;
+}
+
+/* FORWARD TRANSITION (Down Scroll)
+   - Exit: Current page main scales down, slides up slightly, and fades.
+   - Entry: New page main slides up from off-screen bottom. */
+body.page-transition-forward main {
+  transform: scale(0.92) translateY(-40px);
+  opacity: 0.45;
+}
+
+body.page-pre-enter-next main {
+  transform: translateY(100vh);
+  opacity: 1;
+}
+
+/* BACKWARD TRANSITION (Up Scroll)
+   - Exit: Current page main slides down off-screen.
+   - Entry: New page main starts scaled down, and scales up to 1. */
+body.page-transition-backward main {
+  transform: translateY(100vh);
+  opacity: 1;
+}
+
+body.page-pre-enter-prev main {
+  transform: scale(0.92) translateY(-40px);
+  opacity: 0.45;
+}
+
+/* Active enter state: all main restore to normal */
+body.page-enter-active main {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
 /* Accessibility: Focus styles */
