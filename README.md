@@ -14,7 +14,7 @@ A modern, responsive **Personal Portfolio Website** built with **HTML5**, **CSS3
 ---
 
 ## 📌 Table of Contents
-                            
+                           
 - [About the Project](#-about-the-project)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
